@@ -13,12 +13,13 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidayMaker\\holidayMakers\\app\\app.csproj",
+      "projectUniqueName": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidaymaker\\holidayMakers\\app\\app.csproj",
       "projectName": "app",
-      "projectPath": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidayMaker\\holidayMakers\\app\\app.csproj",
+      "projectPath": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidaymaker\\holidayMakers\\app\\app.csproj",
       "packagesPath": "C:\\Users\\Jonas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidayMaker\\holidayMakers\\app\\obj\\",
+      "outputPath": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidaymaker\\holidayMakers\\app\\obj\\",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "C:\\Users\\Jonas\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
