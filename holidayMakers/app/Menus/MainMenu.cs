@@ -24,7 +24,7 @@ public class MainMenu
         int option = 1;
         bool run = true;
         (int Left, int Top) = Console.GetCursorPosition();
-        string color ="✅   \u001b[32m";
+        string arrow ="===>\u001b[32m";
         
         while (run)
         {
@@ -32,10 +32,10 @@ public class MainMenu
             Console.SetCursorPosition(Left,Top);
             
             Console.WriteLine("\nUse the ⬆ and ⬇ to navigate, confirm by \u001b[32mEnter\u001b[0m.");
-            Console.WriteLine($"{(option == 1 ? color : "    ")}   Option1\u001b[0m");
-            Console.WriteLine($"{(option == 2 ? color : "    ")}   Option2\u001b[0m");
-            Console.WriteLine($"{(option == 3 ? color : "    ")}   Option3\u001b[0m");
-            Console.WriteLine($"{(option == 4 ? color : "    ")}   Option4\u001b[0m");
+            Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Option1\u001b[0m");
+            Console.WriteLine($"{(option == 2 ? arrow : "    ")}   Option2\u001b[0m");
+            Console.WriteLine($"{(option == 3 ? arrow : "    ")}   Option3\u001b[0m");
+            Console.WriteLine($"{(option == 4 ? arrow : "    ")}   Option4\u001b[0m");
 
             key = Console.ReadKey(true);
 
