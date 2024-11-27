@@ -5,17 +5,13 @@ namespace app.Menus;
 
 public class MainMenu
 {
-    
-    
+    private SubMenu1 _submenu1;
+
     public MainMenu()
     {
-
-
-
-
-
+        _submenu1 = new SubMenu1();
     }
-    private SubMenu1 submenu1 = new SubMenu1();
+
     public void RunMenu(MainMenu mainMenu)
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -57,7 +53,7 @@ public class MainMenu
                             break;
                         case 2:
                             Console.Clear();
-                            submenu1.RunMenu();
+                            _submenu1.RunMenu();
                             break;
                     }
                     run = false;
