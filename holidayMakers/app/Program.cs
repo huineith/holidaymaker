@@ -6,4 +6,4 @@ Console.WriteLine("OSKAR TEST BRANCH");
 
 MainMenu mainMenu = new MainMenu();
 
-mainMenu.RunMenu(mainMenu);
+mainMenu.RunMenu();

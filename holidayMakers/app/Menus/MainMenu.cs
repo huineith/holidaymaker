@@ -9,10 +9,10 @@ public class MainMenu
 
     public MainMenu()
     {
-        _submenu1 = new SubMenu1();
+        _submenu1 = new SubMenu1(this);
     }
 
-    public void RunMenu(MainMenu mainMenu)
+    public void RunMenu()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("THIS IS THE MAIN MENU");
