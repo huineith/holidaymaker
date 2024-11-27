@@ -11,7 +11,7 @@ public class SubMenu1
     public void RunMenu()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("THIS IS THE SUBMENU");
+        Console.WriteLine("THIS IS THE SUBMENU 1");
         
         
         Console.ResetColor();
