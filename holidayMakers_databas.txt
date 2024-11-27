@@ -502,3 +502,256 @@ INSERT INTO addOns (type, price) VALUES
 
 
 
+--------------------------------- NY KOD HÄR NEDANFÖR 27/11 - 16:15 ---------------------------------------------
+
+-- Skapa tabellen facilities
+CREATE TABLE facilities (
+    id SERIAL PRIMARY KEY,
+    facility TEXT NOT NULL
+);
+
+-- Skapa tabellen roomsXFacilities
+CREATE TABLE roomsXFacilities (
+    room INT REFERENCES rooms(id),
+    facility INT REFERENCES facilities(id),
+    PRIMARY KEY (room, facility)
+);
+
+-- Insert facilities
+INSERT INTO facilities (facility) VALUES
+('Pool'),         -- Facility ID 1
+('Restaurant'),   -- Facility ID 2
+('Kidsclub');     -- Facility ID 3
+
+-- Insert into roomsXFacilities
+-- Room 1 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(1, 1), -- Pool
+(1, 2); -- Restaurant
+
+-- Room 2 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(2, 1); -- Pool
+
+-- Room 3 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(3, 2); -- Restaurant
+
+-- Room 4 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(4, 1), -- Pool
+(4, 3); -- Kidsclub
+
+-- Room 5 has Kidsclub and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(5, 3), -- Kidsclub
+(5, 2); -- Restaurant
+
+-- Room 6 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(6, 1), -- Pool
+(6, 2); -- Restaurant
+
+-- Room 7 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(7, 1); -- Pool
+
+-- Room 8 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(8, 1), -- Pool
+(8, 3); -- Kidsclub
+
+-- Room 9 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(9, 2); -- Restaurant
+
+-- Room 10 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(10, 1); -- Pool
+
+-- Room 11 has Pool, Restaurant, and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(11, 1), -- Pool
+(11, 2), -- Restaurant
+(11, 3); -- Kidsclub
+
+-- Room 12 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(12, 2); -- Restaurant
+
+-- Room 13 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(13, 1), -- Pool
+(13, 3); -- Kidsclub
+
+-- Room 14 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(14, 2); -- Restaurant
+
+-- Room 15 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(15, 1), -- Pool
+(15, 2); -- Restaurant
+
+-- Room 16 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(16, 1), -- Pool
+(16, 3); -- Kidsclub
+
+-- Room 17 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(17, 2); -- Restaurant
+
+-- Room 18 has Pool, Restaurant, and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(18, 1), -- Pool
+(18, 2), -- Restaurant
+(18, 3); -- Kidsclub
+
+-- Room 19 has Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(19, 3); -- Kidsclub
+
+-- Room 20 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(20, 2); -- Restaurant
+
+-- Room 21 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(21, 1), -- Pool
+(21, 3); -- Kidsclub
+
+-- Room 22 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(22, 2); -- Restaurant
+
+-- Room 23 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(23, 1); -- Pool
+
+-- Room 24 has Pool, Restaurant, and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(24, 1), -- Pool
+(24, 2), -- Restaurant
+(24, 3); -- Kidsclub
+
+-- Room 25 has Kidsclub and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(25, 3), -- Kidsclub
+(25, 2); -- Restaurant
+
+-- Room 26 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(26, 1), -- Pool
+(26, 2); -- Restaurant
+
+-- Room 27 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(27, 1); -- Pool
+
+-- Room 28 has Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(28, 3); -- Kidsclub
+
+-- Room 29 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(29, 1), -- Pool
+(29, 3); -- Kidsclub
+
+-- Room 30 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(30, 2); -- Restaurant
+
+-- Room 31 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(31, 1); -- Pool
+
+-- Room 32 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(32, 2); -- Restaurant
+
+-- Room 33 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(33, 1), -- Pool
+(33, 3); -- Kidsclub
+
+-- Room 34 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(34, 1), -- Pool
+(34, 2); -- Restaurant
+
+-- Room 35 has Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(35, 3); -- Kidsclub
+
+-- Room 36 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(36, 1), -- Pool
+(36, 2); -- Restaurant
+
+-- Room 37 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(37, 1); -- Pool
+
+-- Room 38 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(38, 1), -- Pool
+(38, 3); -- Kidsclub
+
+-- Room 39 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(39, 2); -- Restaurant
+
+-- Room 40 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(40, 1); -- Pool
+
+-- Room 41 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(41, 2); -- Restaurant
+
+-- Room 42 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(42, 1), -- Pool
+(42, 3); -- Kidsclub
+
+-- Room 43 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(43, 2); -- Restaurant
+
+-- Room 44 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(44, 1), -- Pool
+(44, 3); -- Kidsclub
+
+-- Room 45 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(45, 1); -- Pool
+
+-- Room 46 has Restaurant and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(46, 2), -- Restaurant
+(46, 3); -- Kidsclub
+
+-- Room 47 has Pool
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(47, 1); -- Pool
+
+-- Room 48 has Pool and Kidsclub
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(48, 1), -- Pool
+(48, 3); -- Kidsclub
+
+-- Room 49 has Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(49, 2); -- Restaurant
+
+-- Room 50 has Pool and Restaurant
+INSERT INTO roomsXFacilities (room, facility) VALUES
+(50, 1), -- Pool
+(50, 2); -- Restaurant
+
+
+
+
+
