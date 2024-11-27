@@ -31,7 +31,7 @@ public class MainMenu
             
             Console.SetCursorPosition(Left,Top);
             
-            Console.WriteLine("\n👌Use the ⬆ and ⬇ to navigate, confirm by \u001b[32mEnter\u001b[0m.");
+            Console.WriteLine("\nUse the Up and Down arrows to navigate, confirm by \u001b[32mEnter\u001b[0m.");
             Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Submenu1\u001b[0m");
             Console.WriteLine($"{(option == 2 ? arrow : "    ")}   Submenu2\u001b[0m");
             Console.WriteLine($"{(option == 3 ? arrow : "    ")}   Option 3\u001b[0m");
