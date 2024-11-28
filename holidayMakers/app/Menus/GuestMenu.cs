@@ -1,3 +1,4 @@
+using System.Threading.Channels;
 using app.Classes;
 
 namespace app.Menus;
@@ -50,7 +51,7 @@ public class GuestMenu
             
             Console.WriteLine("\nUse the Up and Down arrows to navigate, confirm by \u001b[32mEnter\u001b[0m.");
             Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Print 10 guests\u001b[0m");
-            Console.WriteLine($"{(option == 2 ? arrow : "    ")}   SubOption2\u001b[0m");
+            Console.WriteLine($"{(option == 2 ? arrow : "    ")}   Create new guest\u001b[0m");
             Console.WriteLine($"{(option == 3 ? arrow : "    ")}   Print list of guests\u001b[0m");
             Console.WriteLine($"{(option == 4 ? arrow : "    ")}   Go back\u001b[0m");
 
@@ -70,6 +71,32 @@ public class GuestMenu
                     {
                         case 1:
                             _queries.AllGuests();
+                            break;
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Enter the guest info.");
+                            Console.WriteLine("Email: ");
+                            string email = Console.ReadLine();
+                            Console.WriteLine("Firstname: ");
+                            string firstName = Console.ReadLine();
+                            Console.WriteLine("Lastname: ");
+                            string lastName = Console.ReadLine();
+                            Console.WriteLine("Phone Number");
+                            string phoneNr = Console.ReadLine();
+                            Console.WriteLine("Birth Date (YYYY-MM-DD: ");
+                            string birthDateinput = Console.ReadLine();
+                            if (DateTime.TryParseExact(birthDateinput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
+                        {
+                            Console.WriteLine("Date entered correctly");
+                            
+                        }
+                            else
+                            {
+                                Console.WriteLine("Invalid date format, use YYYY-MM-DD");
+                            }
+                            DateTime regDate = DateTime.Now;
+                            
+                            
                             break;
                         case 3:
                             foreach (var guest in guestlist)
