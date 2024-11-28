@@ -8,17 +8,29 @@ public class GuestMenu
 
     private Queries _queries;
     public List<Guest> guestlist = new List<Guest>();
+
+    public async void populateList()
+    {
+        guestlist = await _queries.ReadGuestToList();
+    }
     
     
     
+
+
     public GuestMenu(MainMenu mainMenu, Queries queries)
     {
         _mainMenu = mainMenu;
         _queries = queries;
+        
     }
+    
+    
 
     public void RunMenu()
     {
+        populateList();
+        
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("THIS IS THE SUBMENU 1");
         
@@ -39,7 +51,7 @@ public class GuestMenu
             Console.WriteLine("\nUse the Up and Down arrows to navigate, confirm by \u001b[32mEnter\u001b[0m.");
             Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Print 10 guests\u001b[0m");
             Console.WriteLine($"{(option == 2 ? arrow : "    ")}   SubOption2\u001b[0m");
-            Console.WriteLine($"{(option == 3 ? arrow : "    ")}   SubOption3\u001b[0m");
+            Console.WriteLine($"{(option == 3 ? arrow : "    ")}   Print list of guests\u001b[0m");
             Console.WriteLine($"{(option == 4 ? arrow : "    ")}   Go back\u001b[0m");
 
             key = Console.ReadKey(true);
@@ -58,6 +70,13 @@ public class GuestMenu
                     {
                         case 1:
                             _queries.AllGuests();
+                            break;
+                        case 3:
+                            foreach (var guest in guestlist)
+                            {
+                                Console.WriteLine($"{guest.Id}, {guest.Email}, {guest.FirstName}, {guest.LastName}, {guest.Phone}, {guest.DateOfBirth}, {guest.Blocked}");
+                            }
+
                             break;
                         case 4:
                             Console.Clear();
