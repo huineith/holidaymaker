@@ -5,12 +5,13 @@ namespace app.Menus;
 
 public class MainMenu
 {
-    private SubMenu1 _subMenu1;
+    private GuestMenu _guestMenu;
     private SubMenu2 _subMenu2;
+    private Queries _queries;
 
-    public MainMenu()
+    public MainMenu(Queries queries)
     {
-        _subMenu1 = new SubMenu1(this);
+        _guestMenu = new GuestMenu(this, queries);
         _subMenu2 = new SubMenu2(this);
     }
 
@@ -32,7 +33,7 @@ public class MainMenu
             Console.SetCursorPosition(Left,Top);
             
             Console.WriteLine("\nUse the Up and Down arrows to navigate, confirm by \u001b[32mEnter\u001b[0m.");
-            Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Submenu1\u001b[0m");
+            Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Guests\u001b[0m");
             Console.WriteLine($"{(option == 2 ? arrow : "    ")}   Submenu2\u001b[0m");
             Console.WriteLine($"{(option == 3 ? arrow : "    ")}   Option 3\u001b[0m");
             Console.WriteLine($"{(option == 4 ? arrow : "    ")}   Option4\u001b[0m");
@@ -52,7 +53,7 @@ public class MainMenu
                     {
                         case 1:
                             Console.Clear();
-                            _subMenu2.RunMenu();
+                            _guestMenu.RunMenu();
                             
                             break;
                         case 2:

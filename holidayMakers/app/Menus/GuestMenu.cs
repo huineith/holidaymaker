@@ -1,11 +1,14 @@
 namespace app.Menus;
 
-public class SubMenu1
+public class GuestMenu
 {
     private MainMenu _mainMenu;
-    public SubMenu1(MainMenu mainMenu)
+
+    private Queries _queries;
+    public GuestMenu(MainMenu mainMenu, Queries queries)
     {
         _mainMenu = mainMenu;
+        _queries = queries;
     }
 
     public void RunMenu()
@@ -28,7 +31,7 @@ public class SubMenu1
             Console.SetCursorPosition(Left,Top);
             
             Console.WriteLine("\nUse the Up and Down arrows to navigate, confirm by \u001b[32mEnter\u001b[0m.");
-            Console.WriteLine($"{(option == 1 ? arrow : "    ")}   SubOption1\u001b[0m");
+            Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Print 10 guests\u001b[0m");
             Console.WriteLine($"{(option == 2 ? arrow : "    ")}   SubOption2\u001b[0m");
             Console.WriteLine($"{(option == 3 ? arrow : "    ")}   SubOption3\u001b[0m");
             Console.WriteLine($"{(option == 4 ? arrow : "    ")}   Go back\u001b[0m");
@@ -47,6 +50,9 @@ public class SubMenu1
                     Console.WriteLine("WIP");
                     switch (option)
                     {
+                        case 1:
+                            _queries.AllGuests();
+                            break;
                         case 4:
                             Console.Clear();
                             _mainMenu.RunMenu();
