@@ -1,22 +1,35 @@
 namespace app;
 using Npgsql; 
+using DotNetEnv;
 
 public class Database
 {
-   private readonly string _host = "localhost";
-   private readonly string _port = "5432"; 
-   private readonly string _username = "postgres";
-   private readonly string _password = "portedinme";
-   private readonly string _database = "makersofholidays";
+
+
+   private string _host;//= "localhost";
+   private  string _port;// = "5432"; 
+   private  string _username;// = "postgres";
+   private string _password; //
+   private readonly string _database;// = "makersofholidays";
    private NpgsqlDataSource _connection;
 
    public NpgsqlDataSource Connection()
    {
+      
+ 
       return _connection; 
    }
 
    public Database()
    {
+      Env.TraversePath().Load();
+      _host = Env.GetString("db_host");
+      _port = Env.GetString("port"); 
+      _username =Env.GetString("username");
+      _password=Env.GetString("password"); //
+      _database = Env.GetString("database");
+      
+      
       _connection = NpgsqlDataSource.Create(
             $"Host={_host};Port={_port};Username={_username};Password={_password};Database={_database}");
       
