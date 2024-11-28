@@ -96,7 +96,7 @@ public class GuestMenu
                             }
                             DateTime regDate = DateTime.Now;
                             _queries.AddNewGuest(email,firstName,lastName,phoneNr,birthDate,regDate);
-                            
+                            guestlist.Add(_queries.GetLatestGuest());
                             break;
                         case 3:
                             foreach (var guest in guestlist)
@@ -117,6 +117,7 @@ public class GuestMenu
                     break;
             }
         }
+        _mainMenu.RunMenu();
         
     }
 }
