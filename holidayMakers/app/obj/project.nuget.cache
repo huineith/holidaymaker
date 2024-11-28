@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "DcjsuRl+OwY=",
+  "dgSpecHash": "wNX2Ulhts9U=",
   "success": true,
   "projectFilePath": "C:\\Users\\Jonas\\repos\\c#\\grupparbeten\\holidaymaker\\holidayMakers\\app\\app.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Jonas\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Jonas\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Jonas\\.nuget\\packages\\npgsql\\9.0.1\\npgsql.9.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
