@@ -26,7 +26,7 @@ public class MainMenu
         bool run = true;
         (int Left, int Top) = Console.GetCursorPosition();
         string arrow ="===>\u001b[32m";
-        
+        Console.CursorVisible = false;
         while (run)
         {
             

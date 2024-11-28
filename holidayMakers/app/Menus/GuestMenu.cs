@@ -95,7 +95,7 @@ public class GuestMenu
                                 Console.WriteLine("Invalid date format, use YYYY-MM-DD");
                             }
                             DateTime regDate = DateTime.Now;
-                            
+                            _queries.AddNewGuest(email,firstName,lastName,phoneNr,birthDate,regDate);
                             
                             break;
                         case 3:
@@ -103,7 +103,7 @@ public class GuestMenu
                             {
                                 Console.WriteLine($"{guest.Id}, {guest.Email}, {guest.FirstName}, {guest.LastName}, {guest.Phone}, {guest.DateOfBirth}, {guest.Blocked}");
                             }
-
+                            
                             break;
                         case 4:
                             Console.Clear();
@@ -117,8 +117,6 @@ public class GuestMenu
                     break;
             }
         }
-
-        Console.WriteLine($"You have selected option {option}.");
         
     }
 }

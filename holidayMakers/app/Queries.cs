@@ -61,8 +61,20 @@ public class Queries
         return guestList;
     }
 
-    public async void AddNewGuest(string email,string fname, string lname, string phone, string bDate, DateTime regdate)
+    public async void AddNewGuest(string email,string fname, string lname, string phone, DateTime bDate, DateTime regdate)
     {
-        await using (var cmd = _database.CreateCommand($"INSERT INTO"))
+        await using (var cmd = _database.CreateCommand(
+                         $"INSERT INTO GUESTS(email,firstname,lastname,phone,dateofbirth,regdate) " +
+                         "VALUES ($1,$2,$3,$4,$5,$6)"))
+        {
+            cmd.Parameters.AddWithValue(email);
+            cmd.Parameters.AddWithValue(fname);
+            cmd.Parameters.AddWithValue(lname);
+            cmd.Parameters.AddWithValue(phone);
+            cmd.Parameters.AddWithValue(bDate);
+            cmd.Parameters.AddWithValue(regdate);
+            
+            await cmd.ExecuteNonQueryAsync();
+        }
     }
 }
