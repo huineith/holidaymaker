@@ -1,3 +1,5 @@
+using app.Classes;
+
 namespace app.Menus;
 
 public class GuestMenu
@@ -5,6 +7,10 @@ public class GuestMenu
     private MainMenu _mainMenu;
 
     private Queries _queries;
+    public List<Guest> guestlist = new List<Guest>();
+    
+    
+    
     public GuestMenu(MainMenu mainMenu, Queries queries)
     {
         _mainMenu = mainMenu;

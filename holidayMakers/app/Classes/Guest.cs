@@ -10,12 +10,12 @@ namespace app.Classes
         public string FirstName;
         public string LastName;
         public string Phone;
-        public DateTime DateOfBirth;
+        public string DateOfBirth;
         public DateTime RegDate;
-        public bool Blocked;
+        public string Blocked;
 
         
-        public Guest(int id, string email, string firstName, string lastName, string phone, DateTime dateOfBirth, DateTime regDate, bool blocked)
+        public Guest(int id, string email, string firstName, string lastName, string phone, string dateOfBirth, DateTime regDate, string blocked)
         {
             Id = id;
             Email = email;

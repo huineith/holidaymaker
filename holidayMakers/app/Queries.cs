@@ -1,10 +1,14 @@
 using System.Data;
+using System.Xml;
+using app.Classes;
 using Npgsql;
 
 namespace app;
 
 public class Queries
 {
+
+    private Guest _guest;
     private NpgsqlDataSource _database;
 
     public Queries(NpgsqlDataSource database)
@@ -29,5 +33,27 @@ public class Queries
                     Console.WriteLine("_____________");
                     
                 }
+    }
+
+    public async Task<Guest> ReadGuestToObject()
+    {
+        await using (var cmd = _database.CreateCommand("SELECT * FROM GUESTS WHERE id='1'"))
+            await using(var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                {
+                return new Guest(
+                   reader.GetInt32(0), // Assuming the ID is the first column
+                    reader.GetString(1), // Assuming email is the second column
+                   reader.GetString(2), // Assuming first name
+                   reader.GetString(3), // Assuming last name
+                    reader.GetString(4), // Assuming phone
+                    reader.GetDateTime(5).ToShortDateString(), // Assuming date of birth
+                   reader.GetDateTime(6),
+                   reader.GetBoolean(7) ? "Blocked" : "No"  // Assuming "Blocked" is the 7th column
+
+                    );
+                }
+
+        throw new Exception("Guest not found");
     }
 }
