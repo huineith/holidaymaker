@@ -9,8 +9,10 @@ Database mydb = new Database();
 var myconnection = mydb.Connection();
 
 var queryOnRoom = new RoomQueries(myconnection); 
-    queryOnRoom.AddFacilityFilter("Pool");
-    queryOnRoom.AddFacilityFilter("Restaurant");
+    queryOnRoom.AddSightsFilter(Sights.Beach);
+    queryOnRoom.AddSightsFilter(Sights.Beach,FilterTypes.SmallerThan,500);
+    //queryOnRoom.AddFacilityFilter("Pool");
+    //queryOnRoom.AddFacilityFilter("Restaurant");
     queryOnRoom.Order("id");
     queryOnRoom.Query();
     

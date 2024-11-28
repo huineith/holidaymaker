@@ -4,6 +4,7 @@ using System.Collections;
 public class RoomQueries: Queries
 {
     private List<string> _facilityFilters= new ();
+    private List<ISqlFilterable> _sightsFilter = new(); 
     private string _queryStart="SELECT * FROM rooms";
     private bool _firstFilter = true;
     private bool _ordered = false;
@@ -29,12 +30,32 @@ public class RoomQueries: Queries
             }
     }
 
+    public void AddSightsFilter(Sights sight)
+    {
+        _sightsFilter.Add(new SightFilter(sight));
+    }
+    public void AddSightsFilter(Sights sight, FilterTypes filterType,int threshold)
+    {
+        _sightsFilter.Add(new SightFilter(sight,filterType,threshold));
+    }
     public void AddFacilityFilter(string facilty)
     {
         _facilityFilters.Add(facilty); 
     }
     private void ConstructQuery()
     {
+        foreach (var filter in _sightsFilter)
+        {
+            if (_firstFilter)
+            {
+                _queri += $" where " + filter.ToSqlQueray();
+                _firstFilter = false;
+            }
+            else
+            {
+                _queri += $" AND " + filter.ToSqlQueray();
+            }
+        }
         foreach (var facility in _facilityFilters)
         {
             if (_firstFilter)
@@ -76,11 +97,15 @@ public class RoomQueries: Queries
     
     public void ResetQuery()
     {
-        _queri = _queryStart;
+        _queri = _queryStart; //reset query string
+        _firstFilter = true;  //reset _firstFilter since no filter has been added to query string
     }
 
     public void ResetFilters()
     {
         _facilityFilters.Clear();
+        _sightsFilter.Clear();
     }
+
+
 }
