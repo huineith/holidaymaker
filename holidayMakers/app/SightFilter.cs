@@ -4,7 +4,7 @@ public class SightFilter : ISqlFilterable
 {
     private Sights _sight;
     private int _thershold;
-    private FilterTypes _filter = FilterTypes.Has; 
+    private FilterTypes _filter = FilterTypes.Has; // default assumption of Has query as it is the most inclusive query
     
     public SightFilter(Sights sight )
     {

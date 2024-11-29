@@ -3,8 +3,7 @@ using Npgsql;
 using System.Collections; 
 public class RoomQueries: Queries
 {
-    private List<string> _facilityFilters= new ();
-    private List<ISqlFilterable> _sightsFilter = new(); 
+    private List<ISqlFilterable> _filterList = new(); 
     private string _queryStart="SELECT * FROM rooms";
     private bool _firstFilter = true;
     private bool _ordered = false;
@@ -32,19 +31,19 @@ public class RoomQueries: Queries
 
     public void AddSightsFilter(Sights sight)
     {
-        _sightsFilter.Add(new SightFilter(sight));
+        _filterList.Add(new SightFilter(sight));
     }
     public void AddSightsFilter(Sights sight, FilterTypes filterType,int threshold)
     {
-        _sightsFilter.Add(new SightFilter(sight,filterType,threshold));
+        _filterList.Add(new SightFilter(sight,filterType,threshold));
     }
-    public void AddFacilityFilter(string facilty)
+    public void AddFacilityFilter(Facilities facilty)
     {
-        _facilityFilters.Add(facilty); 
+        _filterList.Add(new FacilitiesFilter(facilty) ); 
     }
     private void ConstructQuery()
     {
-        foreach (var filter in _sightsFilter)
+        foreach (var filter in _filterList)
         {
             if (_firstFilter)
             {
@@ -56,23 +55,7 @@ public class RoomQueries: Queries
                 _queri += $" AND " + filter.ToSqlQueray();
             }
         }
-        foreach (var facility in _facilityFilters)
-        {
-            if (_firstFilter)
-            {
-                _queri+=$" where id IN (select room from roomsxfacilities where facility IN "
-                    + $"(select id from facilities where facilities.facility='{facility}'))";
-                _firstFilter = false; 
-
-            }
-            else
-            {
-                _queri+=$" AND id IN (SELECT room FROM roomsxfacilities WHERE facility In "
-                              + $"(select id from facilities where facilities.facility='{facility}'))";
-            }
-        }
-
-
+        
         if (_ordered)
         {
             _queri += $"order by {_orderby}";
@@ -103,8 +86,7 @@ public class RoomQueries: Queries
 
     public void ResetFilters()
     {
-        _facilityFilters.Clear();
-        _sightsFilter.Clear();
+        _filterList.Clear();
     }
 
 

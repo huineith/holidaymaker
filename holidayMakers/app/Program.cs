@@ -11,9 +11,9 @@ var myconnection = mydb.Connection();
 var queryOnRoom = new RoomQueries(myconnection); 
     queryOnRoom.AddSightsFilter(Sights.Beach);
     queryOnRoom.AddSightsFilter(Sights.Beach,FilterTypes.SmallerThan,500);
-    //queryOnRoom.AddFacilityFilter("Pool");
-    //queryOnRoom.AddFacilityFilter("Restaurant");
-    queryOnRoom.Order("id");
+    queryOnRoom.AddFacilityFilter(Facilities.Pool);
+    // //queryOnRoom.AddFacilityFilter("Restaurant");
+    // queryOnRoom.Order("id");
     queryOnRoom.Query();
     
     // await using (var cmd= myconnection.CreateCommand("Select * from sights") )
