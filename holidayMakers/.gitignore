@@ -482,3 +482,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+holidayMakers/app/obj/app.csproj.nuget.dgspec.json
+*app.csproj.nuget.g.props
+**/project.assets.json
+project.nuget.cache
