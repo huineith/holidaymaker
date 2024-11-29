@@ -32,20 +32,7 @@ namespace app.Classes
             RegDate = regDate;
             Blocked = blocked;
         }
-
-        public int GuestIDbyEmail(List<Guest> guestlist,string email)
-        {
-            foreach (var _guest in guestlist)
-            {
-                if (_guest.Email == email)
-                {
-                    Console.WriteLine($"ID found!: {_guest.Id}");
-                    return _guest.Id;
-                }
-            }
-
-            throw new Exception();
-        }
+        
 
         public async Task<bool> AlterGuest(List<Guest> guestlist)
         {
@@ -87,6 +74,39 @@ namespace app.Classes
                             string phonenr = Console.ReadLine();
                             await Queries.ChangeGuestData(guest.Id, phonenr, "phone");
                             return true;
+                        case "3":
+                            if (guest.Blocked == "No")
+                            {
+                                Console.WriteLine("Do you want to block this user? Y/N");
+                                string answer = Console.ReadLine().ToLower();
+                                if (answer[0] == 'y')
+                                {
+                                    await Queries.BlockUser(guest.Id, true);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ok goodbye");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Do you want to UN-BLOCK this user? y/n");
+                                string answer = Console.ReadLine().ToLower();
+                                if (answer[0] == 'y')
+                                {
+                                    await Queries.BlockUser(guest.Id, false);
+                                    Console.Clear();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("OK goodbye");
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                    
+                                }
+                                
+                            }
+                            break;
                     }
                 }
             }

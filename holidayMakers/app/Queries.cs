@@ -82,12 +82,27 @@ public class Queries
         }
     }
 
+    public async Task BlockUser(int ind, bool blocker)
+    {
+        try
+        {
+            await using (var cmd = _database.CreateCommand($"UPDATE guests SET blocked= $1 WHERE id=$2"))
+            {
+                cmd.Parameters.AddWithValue(blocker);
+                cmd.Parameters.AddWithValue(ind);
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                Console.WriteLine($"{rowsAffected} row(s) updated.");
+            }
+        }
+        catch (NpgsqlException npgsqlEx)
+        {
+            Console.WriteLine(npgsqlEx.Message);
+        }
+    }
     public async Task ChangeGuestData(int ind, string info,string field)
     {
         try
         {
-
-
             await using (var cmd = _database.CreateCommand($"UPDATE guests SET {field} = $1 WHERE id = $2;"))
             {
 
