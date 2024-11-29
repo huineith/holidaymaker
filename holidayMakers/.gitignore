@@ -487,6 +487,7 @@ $RECYCLE.BIN/
 # Ignore build output directories
 /app/bin/
 /app/obj/
+/app/obj/
 *.nuget.cache
 *.dgspec.json
 *.g.props
