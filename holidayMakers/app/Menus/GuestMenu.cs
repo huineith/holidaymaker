@@ -15,9 +15,6 @@ public class GuestMenu
         guestlist = await _queries.ReadGuestToList();
     }
     
-    
-    
-
 
     public GuestMenu(MainMenu mainMenu, Queries queries)
     {

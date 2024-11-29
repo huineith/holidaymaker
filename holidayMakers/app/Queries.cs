@@ -35,12 +35,12 @@ public class Queries
                 }
     }
 
-    public async Task<Guest> GetLatestGuest()
+    public Guest GetLatestGuest()
     {
         
-        await using(var cmd = _database.CreateCommand("SELECT * FROM GUEST ORDER BY id DESC LIMIT 1"))
-            await using (var reader = await cmd.ExecuteReaderAsync())
-                if (await reader.ReadAsync())
+        using(var cmd = _database.CreateCommand("SELECT * FROM GUESTS ORDER BY id DESC LIMIT 1"))
+            using (var reader =  cmd.ExecuteReader())
+                if (reader.Read())
                 {
                     return new Guest(
                         reader.GetInt32(0), // Assuming the ID is the first column
