@@ -7,69 +7,59 @@ public class GuestMenu
 {
     private MainMenu _mainMenu;
 
+    private Guest _guest;
+
     private Queries _queries;
     public List<Guest> guestlist = new List<Guest>();
 
-    public async void populateList()
+    public async Task populateList()
     {
         guestlist = await _queries.ReadGuestToList();
     }
-    
+
 
     public GuestMenu(MainMenu mainMenu, Queries queries)
     {
         _mainMenu = mainMenu;
         _queries = queries;
-        
+        _guest = new Guest(0, "", "", "", "", "", DateTime.Now, "", queries);
+
     }
-    
-    
 
-    public void RunMenu()
+
+
+    public async Task RunMenu()
     {
-        populateList();
-        
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("THIS IS THE SUBMENU 1");
-        
-        
-        Console.ResetColor();
+        await populateList();
 
-        ConsoleKeyInfo key;
-        int option = 1;
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("THIS IS THE GUEST MENU");
+        Console.ResetColor();
+        
         bool run = true;
-        (int Left, int Top) = Console.GetCursorPosition();
-        string arrow ="===>\u001b[32m";
         
         while (run)
         {
+            Console.WriteLine($"    1. Alter guests\u001b[0m");
+            Console.WriteLine($"    2. Create new guest\u001b[0m");
+            Console.WriteLine($"    3. Print list of guests\u001b[0m");
+            Console.WriteLine($"    4. Go back to main menu\u001b[0m");
+            int option = int.Parse(Console.ReadLine());
             
-            Console.SetCursorPosition(Left,Top);
-            
-            Console.WriteLine("\nUse the Up and Down arrows to navigate, confirm by \u001b[32mEnter\u001b[0m.");
-            Console.WriteLine($"{(option == 1 ? arrow : "    ")}   Print 10 guests\u001b[0m");
-            Console.WriteLine($"{(option == 2 ? arrow : "    ")}   Create new guest\u001b[0m");
-            Console.WriteLine($"{(option == 3 ? arrow : "    ")}   Print list of guests\u001b[0m");
-            Console.WriteLine($"{(option == 4 ? arrow : "    ")}   Go back\u001b[0m");
-
-            key = Console.ReadKey(true);
-
-            switch (key.Key)
-            {
-                case ConsoleKey.DownArrow:
-                    option = (option == 4 ? 1 : option+1);
-                    break;
-                case ConsoleKey.UpArrow:
-                    option = (option == 1 ? 4 : option-1);
-                    break;
-                case ConsoleKey.Enter:
-                    Console.WriteLine("WIP");
                     switch (option)
                     {
-                        case 1:
-                            _queries.AllGuests();
+                        case 1: // Alter guests
+                            Console.Clear();
+                            bool altered = await _guest.AlterGuest(guestlist);
+                            if (altered)
+                            {
+                                Console.WriteLine("Guest data has been altered. Returning to the main menu...");
+                                await Task.Delay(1000); // Optional: Add a slight delay to show the message
+                                run = false; // Exit loop and return control to MainMenu
+                            }
+
                             break;
-                        case 2:
+                        case 2: // Create new guest
                             Console.Clear();
                             Console.WriteLine("Enter the guest info.");
                             Console.WriteLine("Email: ");
@@ -80,41 +70,37 @@ public class GuestMenu
                             string lastName = Console.ReadLine();
                             Console.WriteLine("Phone Number");
                             string phoneNr = Console.ReadLine();
-                            Console.WriteLine("Birth Date (YYYY-MM-DD: ");
-                            string birthDateinput = Console.ReadLine();
-                            if (DateTime.TryParseExact(birthDateinput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
-                        {
-                            Console.WriteLine("Date entered correctly");
-                            
-                        }
+                            Console.WriteLine("Birth Date (YYYY-MM-DD): ");
+                            string birthDateInput = Console.ReadLine();
+
+                            if (DateTime.TryParseExact(birthDateInput, "yyyy-MM-dd", null,
+                                    System.Globalization.DateTimeStyles.None, out DateTime birthDate))
+                            {
+                                DateTime regDate = DateTime.Now;
+                                _queries.AddNewGuest(email, firstName, lastName, phoneNr, birthDate, regDate);
+                                guestlist.Add(_queries.GetLatestGuest());
+                                Console.WriteLine("New guest created successfully.");
+                            }
                             else
                             {
-                                Console.WriteLine("Invalid date format, use YYYY-MM-DD");
+                                Console.WriteLine("Invalid date format, use YYYY-MM-DD.");
                             }
-                            DateTime regDate = DateTime.Now;
-                            _queries.AddNewGuest(email,firstName,lastName,phoneNr,birthDate,regDate);
-                            guestlist.Add(_queries.GetLatestGuest());
+
                             break;
-                        case 3:
+                        case 3: // Print list of guests
+                            Console.Clear();
                             foreach (var guest in guestlist)
                             {
-                                Console.WriteLine($"{guest.Id}, {guest.Email}, {guest.FirstName}, {guest.LastName}, {guest.Phone}, {guest.DateOfBirth}, {guest.Blocked}");
+                                Console.WriteLine(
+                                    $"{guest.Id}, {guest.Email}, {guest.FirstName}, {guest.LastName}, {guest.Phone}, {guest.DateOfBirth}, {guest.Blocked}");
                             }
-                            
                             break;
-                        case 4:
-                            Console.Clear();
-                            _mainMenu.RunMenu();
+                        case 4: 
+                            run = false; 
                             break;
                     }
-                    {
-                        
-                    }
-                    run = false;
+
                     break;
-            }
         }
-        _mainMenu.RunMenu();
-        
     }
 }

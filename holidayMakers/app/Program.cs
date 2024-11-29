@@ -16,5 +16,8 @@ Queries _queries = new Queries(myconnection);
 Console.WriteLine("OSKAR TEST BRANCH");
 
 MainMenu mainMenu = new MainMenu(_queries);
-
-mainMenu.RunMenu();
+bool run = true;
+while (run)
+{
+    await mainMenu.RunMenu();
+}

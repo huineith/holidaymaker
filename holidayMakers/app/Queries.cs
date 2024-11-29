@@ -16,24 +16,7 @@ public class Queries
         _database = database;
     }
 
-    public async void AllGuests()
-    {
-        await using (var cmd = _database.CreateCommand("SELECT * FROM guests WHERE id='1'"))
-            await using (var reader = await cmd.ExecuteReaderAsync())
-                while (await reader.ReadAsync())
-                {
-                    Console.WriteLine($"id: {reader.GetInt32(0)}\n");
-                    Console.WriteLine($"email: {reader.GetString(1)}\n");
-                    Console.WriteLine($"fName: {reader.GetString(2)}\n");
-                    Console.WriteLine($"lName: {reader.GetString(3)}\n");
-                    Console.WriteLine($"phone: {reader.GetString(4)}\n");
-                    Console.WriteLine($"birthdate: {reader.GetDateTime(5).ToShortDateString()}\n");
-                    Console.WriteLine($"blocked?: {(reader.GetBoolean(7) ? "Blocked" : "no")}");
-
-                    Console.WriteLine("_____________");
-                    
-                }
-    }
+    
 
     public Guest GetLatestGuest()
     {
@@ -96,6 +79,29 @@ public class Queries
             cmd.Parameters.AddWithValue(regdate);
             
             await cmd.ExecuteNonQueryAsync();
+        }
+    }
+
+    public async Task ChangeGuestData(int ind, string info,string field)
+    {
+        try
+        {
+
+
+            await using (var cmd = _database.CreateCommand($"UPDATE guests SET {field} = $1 WHERE id = $2;"))
+            {
+
+                cmd.Parameters.AddWithValue(info);
+                cmd.Parameters.AddWithValue(ind);
+
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                Console.WriteLine($"{rowsAffected} row(s) updated.");
+            }
+
+        }
+        catch (NpgsqlException npgsqlEx)
+        {
+            Console.WriteLine(npgsqlEx.Message);
         }
     }
 }
