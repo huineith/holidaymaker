@@ -483,7 +483,14 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-*app.csproj.nuget.dgspec.json
-*app.csproj.nuget.g.props
-*project.assets.json
-*project.nuget.cache
+# Ignore build artifacts
+# Ignore build output directories
+/app/bin/
+/app/obj/
+*.nuget.cache
+*.dgspec.json
+*.g.props
+*.g.targets
+*.user
+*.log
+project.assets.json
