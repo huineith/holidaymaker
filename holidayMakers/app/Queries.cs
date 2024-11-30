@@ -81,7 +81,6 @@ public class Queries
             await cmd.ExecuteNonQueryAsync();
         }
     }
-
     public async Task BlockUser(int ind, bool blocker)
     {
         try

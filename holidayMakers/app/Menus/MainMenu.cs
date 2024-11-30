@@ -25,8 +25,6 @@ public class MainMenu
         
         while (run)
         {
-            
-            
             Console.WriteLine($"   1. Guests\u001b[0m");
             Console.WriteLine($"   2. Submenu2\u001b[0m");
             Console.WriteLine($"   3. Option 3\u001b[0m");

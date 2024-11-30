@@ -18,7 +18,6 @@ namespace app.Classes
         public string Blocked;
         
         public Queries Queries { get; set; } 
-
         
         public Guest(int id, string email, string firstName, string lastName, string phone, string dateOfBirth, DateTime regDate, string blocked, Queries queries = null)
         {
@@ -33,7 +32,6 @@ namespace app.Classes
             Blocked = blocked;
         }
         
-
         public async Task<bool> AlterGuest(List<Guest> guestlist)
         {
             Console.WriteLine("Modify guest data\n");
@@ -104,7 +102,6 @@ namespace app.Classes
                                     Console.Clear();
                                     
                                 }
-                                
                             }
                             break;
                     }
