@@ -40,6 +40,57 @@ public class Queries
 
         throw new Exception("No guest found");
     }
+
+    public async Task<List<Location>> ReadLocations()
+    {
+        var LocationList = new List<Location>();
+        
+        await using (var cmd = _database.CreateCommand("SELECT * FROM locations"))
+            await using (var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                {
+                    LocationList.Add(new Location(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2)));
+                }
+
+        return LocationList;
+    }
+
+    public async Task<List<BedType>> ReadBeds()
+    {
+        var BedTypeList = new List<BedType>();
+        await using(var cmd = _database.CreateCommand("SELECT * FROM bedtypes"))
+            await using(var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                {
+                    BedTypeList.Add(new BedType(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetInt32(2)));
+                }
+
+        return BedTypeList;
+    }
+    
+
+    public async Task<List<BedXRoom>> GetBedXrooms()
+    {
+        var bedXroomList = new List<BedXRoom>();
+        await using(var cmd = _database.CreateCommand("SELECT * FROM bedsxrooms"))
+            await using(var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+
+                {
+                    bedXroomList.Add(new BedXRoom(
+                        reader.GetInt32(0),
+                        reader.GetInt32(1),
+                        reader.GetInt32(2)));
+                }
+
+        return bedXroomList;
+    }
     
     public async Task<List<Guest>> ReadGuestToList()
     {
