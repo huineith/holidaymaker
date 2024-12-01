@@ -73,6 +73,24 @@ public class Queries
 
         return BedTypeList;
     }
+
+    public async Task<List<Room>> GetRooms()
+    {
+        var RoomList = new List<Room>();
+        await using (var cmd = _database.CreateCommand("SELECT * FROM rooms"))
+            await using(var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                {
+                    RoomList.Add(new Room(
+                        reader.GetInt32(0),
+                        reader.GetInt32(1),
+                        reader.GetInt32(2),
+                        reader.GetDouble(3),
+                        reader.GetDouble(4)));
+                }
+
+        return RoomList;
+    }
     
 
     public async Task<List<BedXRoom>> GetBedXrooms()

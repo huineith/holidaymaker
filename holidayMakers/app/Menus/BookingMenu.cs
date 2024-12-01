@@ -12,6 +12,7 @@ public class BookingMenu
     public List<BedXRoom> bedXroomList= new ();
     private BedType _bedType;
     private List<BedType> _bedTypes;
+    private List<Room> _rooms;
 
     public BookingMenu(MainMenu mainMenu, Queries queries)
     {
@@ -24,6 +25,7 @@ public class BookingMenu
         bedXroomList = await _queries.GetBedXrooms();
         LocationList = await _queries.ReadLocations();
         _bedTypes = await _queries.ReadBeds();
+        _rooms = await _queries.GetRooms();
         
         
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -37,7 +39,7 @@ public class BookingMenu
             Console.WriteLine($"   1. Create Booking\u001b[0m");
             Console.WriteLine($"   2. List bookings\u001b[0m");
             Console.WriteLine($"   3. Show locations\u001b[0m");
-            Console.WriteLine($"   4. Option4\u001b[0m");
+            Console.WriteLine($"   4. Show rooms\u001b[0m");
             Console.WriteLine("\n");
             int option = int.Parse(Console.ReadLine());
 
@@ -54,6 +56,22 @@ public class BookingMenu
                     foreach (var location in LocationList)
                     {
                         Console.WriteLine($"{location.Id}. {location.Country}: Location: {location.Name}");
+                    }
+
+                    break;
+                case 4:
+                    foreach (var Room in _rooms)
+                    {
+                        Console.WriteLine($"id: {Room._id}\n" +
+                                          $"Rating: {Room._rating}");
+                        foreach (var location in LocationList)
+                        {
+                            if (location.Id == Room._location)
+                            {
+                                Console.WriteLine($"Country {location.Country}, City: {location.Name}\n");
+                                
+                            }   
+                        }
                     }
 
                     break;
