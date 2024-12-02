@@ -86,7 +86,8 @@ public class Queries
                         reader.GetInt32(1),
                         reader.GetInt32(2),
                         reader.GetDouble(3),
-                        reader.GetDouble(4)));
+                        reader.GetDouble(4),
+                        reader.GetString(5)));
                 }
 
         return RoomList;

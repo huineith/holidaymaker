@@ -62,22 +62,38 @@ public class BookingMenu
                 case 4:
                     foreach (var Room in _rooms)
                     {
+                        int totalPpl = 0;
                         Console.WriteLine($"id: {Room._id}\n" +
+                                          $"{Room._name}\n" +
                                           $"Rating: {Room._rating}");
                         foreach (var location in LocationList)
                         {
                             if (location.Id == Room._location)
                             {
-                                Console.WriteLine($"Country {location.Country}, City: {location.Name}\n");
-                                
-                            }   
+                                Console.WriteLine($"Country {location.Country}, City: {location.Name}");
+                            }
                         }
+
+                        foreach (var bed in bedXroomList)
+                        {
+                            if(bed.RoomId == Room._id)
+                            {
+                                foreach (var bedtype in _bedTypes)
+                                {
+                                    if (bed.BedTypeId == bedtype.Id)
+                                    {
+                                        Console.WriteLine($"BedType: {bedtype.Type}, amount: {bed.Amount}");
+                                        totalPpl += (bedtype.Persons * bed.Amount);
+                                    }
+                                }
+                                
+                            }
+                        }
+                        Console.WriteLine($"Total bedspots: {totalPpl}");
+                        Console.WriteLine("________\n");
                     }
-
                     break;
-
             }
-
             run = false;
             break;
         }
