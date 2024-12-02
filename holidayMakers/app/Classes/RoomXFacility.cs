@@ -1,16 +1,16 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen RoomXFacilities
     public class RoomXFacility
     {
-        // Fält av RoomXFacility-klassen
-        public int RoomId; // room motsvarar RoomId här
-        public int FacilityId; // facility motsvarar FacilityId här
+        public int Room;
+        public int Facility;
 
-        // Konstruktor för RoomXFacility
-        public RoomXFacility(int roomId, int facilityId)
+        // Konstruktor för att initialisera fälten
+        public RoomXFacility(int room, int facility)
         {
-            RoomId = roomId;
-            FacilityId = facilityId;
+            this.Room = room;
+            this.Facility = facility;
         }
     }
 }

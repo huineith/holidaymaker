@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen Admins
     public class Admin
     {
-        // Fält av Admin-klassen
         public int Id;
         public string Username;
         public string Password;
 
-        // Konstruktor för Admin
+        // Konstruktor för att initialisera fälten
         public Admin(int id, string username, string password)
         {
-            Id = id;
-            Username = username;
-            Password = password;
+            this.Id = id;
+            this.Username = username;
+            this.Password = password;
         }
     }
 }

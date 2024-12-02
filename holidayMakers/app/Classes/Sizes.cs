@@ -1,11 +1,16 @@
 ﻿namespace app.Classes
 {
-    // Enum som representerar olika rumstorlekar
-    public enum Sizes
+    // Klass för att representera tabellen Sizes
+    public class Size
     {
-        Small,
-        Medium,
-        Large,
-        ExtraLarge
+        public int Id;
+        public SizeEnum SizeType;
+
+        // Konstruktor för att initialisera fälten
+        public Size(int id, SizeEnum sizeType)
+        {
+            this.Id = id;
+            this.SizeType = sizeType;
+        }
     }
 }

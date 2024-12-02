@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen AddOns
     public class AddOn
     {
-        // Fält av AddOn-klassen
         public int Id;
         public string Type;
         public decimal Price;
 
-        // Konstruktor för AddOn
+        // Konstruktor för att initialisera fälten
         public AddOn(int id, string type, decimal price)
         {
-            Id = id;
-            Type = type;
-            Price = price;
+            this.Id = id;
+            this.Type = type;
+            this.Price = price;
         }
     }
 }

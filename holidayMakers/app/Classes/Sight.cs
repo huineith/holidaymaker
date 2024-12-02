@@ -1,16 +1,16 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen Sights
     public class Sight
     {
-        // Fält av Sight-klassen
         public int Id;
         public string Name;
 
-        // Konstruktor för Sight
+        // Konstruktor för att initialisera fälten
         public Sight(int id, string name)
         {
-            Id = id;
-            Name = name;
+            this.Id = id;
+            this.Name = name;
         }
     }
 }

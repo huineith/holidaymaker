@@ -1,16 +1,16 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen Facilities
     public class Facility
     {
-        // Fält av Facility-klassen
         public int Id;
-        public string FacilityName;
+        public string Name;
 
-        // Konstruktor för Facility
-        public Facility(int id, string facilityName)
+        // Konstruktor för att initialisera fälten
+        public Facility(int id, string name)
         {
-            Id = id;
-            FacilityName = facilityName;
+            this.Id = id;
+            this.Name = name;
         }
     }
 }

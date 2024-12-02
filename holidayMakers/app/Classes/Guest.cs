@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace app.Classes
+﻿namespace app.Classes
 {
+    // Klass för att representera tabellen Guests
     public class Guest
     {
-        // Fält av Guest-klassen
         public int Id;
         public string Email;
         public string FirstName;
@@ -14,17 +12,17 @@ namespace app.Classes
         public DateTime RegDate;
         public bool Blocked;
 
-        // Konstruktor för Guest
+        // Konstruktor för att initialisera fälten
         public Guest(int id, string email, string firstName, string lastName, string phone, DateTime dateOfBirth, DateTime regDate, bool blocked)
         {
-            Id = id;
-            Email = email;
-            FirstName = firstName;
-            LastName = lastName;
-            Phone = phone;
-            DateOfBirth = dateOfBirth;
-            RegDate = regDate;
-            Blocked = blocked;
+            this.Id = id;
+            this.Email = email;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Phone = phone;
+            this.DateOfBirth = dateOfBirth;
+            this.RegDate = regDate;
+            this.Blocked = blocked;
         }
     }
 }

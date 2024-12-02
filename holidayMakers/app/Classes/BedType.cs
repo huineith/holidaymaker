@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen BedTypes
     public class BedType
     {
-        // Fält av BedType-klassen
         public int Id;
-        public string Type;
+        public BedTypeEnum Type;
         public int Persons;
 
-        // Konstruktor för BedType
-        public BedType(int id, string type, int persons)
+        // Konstruktor för att initialisera fälten
+        public BedType(int id, BedTypeEnum type, int persons)
         {
-            Id = id;
-            Type = type;
-            Persons = persons;
+            this.Id = id;
+            this.Type = type;
+            this.Persons = persons;
         }
     }
 }

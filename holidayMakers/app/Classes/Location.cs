@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen Locations
     public class Location
     {
-        // Fält av Location-klassen
         public int Id;
         public string Name;
         public string Country;
 
-        // Konstruktor för Location
+        // Konstruktor för att initialisera fälten
         public Location(int id, string name, string country)
         {
-            Id = id;
-            Name = name;
-            Country = country;
+            this.Id = id;
+            this.Name = name;
+            this.Country = country;
         }
     }
 }

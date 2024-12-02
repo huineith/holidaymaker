@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen BedsXRooms
     public class BedXRoom
     {
-        // Fält av BedXRoom-klassen
-        public int RoomId; // room motsvarar RoomId här
-        public int BedTypeId; // bedType motsvarar BedTypeId här
+        public int Room;
+        public int BedType;
         public int Amount;
 
-        // Konstruktor för BedXRoom
-        public BedXRoom(int roomId, int bedTypeId, int amount)
+        // Konstruktor för att initialisera fälten
+        public BedXRoom(int room, int bedType, int amount)
         {
-            RoomId = roomId;
-            BedTypeId = bedTypeId;
-            Amount = amount;
+            this.Room = room;
+            this.BedType = bedType;
+            this.Amount = amount;
         }
     }
 }

@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen AddOnsXBookings
     public class AddOnXBooking
     {
-        // Fält av AddOnXBooking-klassen
-        public int BookingId; // booking motsvarar BookingId här
-        public int AddOnId; // addon motsvarar AddOnId här
+        public int Booking;
+        public int AddOn;
         public int Amount;
 
-        // Konstruktor för AddOnXBooking
-        public AddOnXBooking(int bookingId, int addOnId, int amount)
+        // Konstruktor för att initialisera fälten
+        public AddOnXBooking(int booking, int addOn, int amount)
         {
-            BookingId = bookingId;
-            AddOnId = addOnId;
-            Amount = amount;
+            this.Booking = booking;
+            this.AddOn = addOn;
+            this.Amount = amount;
         }
     }
 }

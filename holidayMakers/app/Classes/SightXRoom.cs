@@ -1,18 +1,18 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen SightsXRooms
     public class SightXRoom
     {
-        // Fält av SightXRoom-klassen
-        public int SightId; // sight motsvarar SightId här
-        public int RoomId; // room motsvarar RoomId här
+        public int Sight;
+        public int Room;
         public int Distance;
 
-        // Konstruktor för SightXRoom
-        public SightXRoom(int sightId, int roomId, int distance)
+        // Konstruktor för att initialisera fälten
+        public SightXRoom(int sight, int room, int distance)
         {
-            SightId = sightId;
-            RoomId = roomId;
-            Distance = distance;
+            this.Sight = sight;
+            this.Room = room;
+            this.Distance = distance;
         }
     }
 }

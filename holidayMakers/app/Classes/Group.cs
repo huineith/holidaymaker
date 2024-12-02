@@ -1,16 +1,16 @@
 ﻿namespace app.Classes
 {
+    // Klass för att representera tabellen Groups
     public class Group
     {
-        // Fält av Group-klassen
-        public int GuestId; // guest motsvarar GuestId här
-        public int BookingId; // booking motsvarar BookingId här
+        public int Guest;
+        public int Booking;
 
-        // Konstruktor för Group
-        public Group(int guestId, int bookingId)
+        // Konstruktor för att initialisera fälten
+        public Group(int guest, int booking)
         {
-            GuestId = guestId;
-            BookingId = bookingId;
+            this.Guest = guest;
+            this.Booking = booking;
         }
     }
 }
