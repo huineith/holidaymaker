@@ -1,4 +1,5 @@
 using System.Data;
+using System.Diagnostics;
 using System.Xml;
 using app.Classes;
 using Npgsql;
@@ -72,6 +73,57 @@ public class Queries
                 }
 
         return BedTypeList;
+    }
+
+    public async Task<List<addonXbooking>> ReadAddonXbooking()
+    {
+        var addonXbookingList = new List<addonXbooking>();
+        await using(var cmd = _database.CreateCommand("SELECT * FROM addonsxbookings"))
+            await using(var reader = await cmd.ExecuteReaderAsync())
+            while (await reader.ReadAsync())
+            {
+                addonXbookingList.Add(new addonXbooking(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1),
+                    reader.GetInt32(2)));
+            }
+
+        return addonXbookingList;
+    }
+
+    public async Task<List<Addon>> ReadAddons()
+    {
+        var addonList = new List<Addon>();
+        await using(var cmd = _database.CreateCommand("SELECT * FROM addons"))
+        await using (var reader = await cmd.ExecuteReaderAsync())
+        while(await reader.ReadAsync())
+        {
+            addonList.Add(new Addon(
+                reader.GetInt32(0),
+                reader.GetString(1),
+                reader.GetDouble(2)));
+        }
+
+        return addonList;
+    }
+
+    public async Task<List<Booking>> ReadBookings()
+    {
+        var bookinglist = new List<Booking>();
+        await using(var cmd = _database.CreateCommand("SELECT * FROM bookings"))
+            await using (var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                {
+                    bookinglist.Add(new Booking(
+                        reader.GetInt32(0),
+                        reader.GetInt32(1),
+                        reader.GetInt32(2),
+                        reader.GetInt32(3),
+                        reader.GetDateTime(4),
+                        reader.GetDateTime(5)));
+                }
+
+        return bookinglist;
     }
 
     public async Task<List<Room>> GetRooms()
