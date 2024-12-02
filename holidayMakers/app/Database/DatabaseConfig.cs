@@ -8,7 +8,7 @@ namespace app.Database
         private readonly string _host = "localhost";
         private readonly string _port = "5432";
         private readonly string _username = "postgres";
-        private readonly string _password = "-";
+        private readonly string _password = "Erandii12332";
         private readonly string _database = "makersofholiday";
         private NpgsqlDataSource _connection;
 

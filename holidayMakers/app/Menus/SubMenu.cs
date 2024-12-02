@@ -17,7 +17,7 @@ namespace app.Menus
         }
 
         // Metod för att registrera en ny gäst
-        public async void RegisterGuestMenu()
+        public async Task RegisterGuestMenu()
         {
             Console.Clear();
             Console.WriteLine("REGISTER GUEST");
@@ -44,7 +44,7 @@ namespace app.Menus
         }
 
         // Metod för att söka efter lediga rum
-        public async void SearchAvailableRoomsMenu()
+        public async Task SearchAvailableRoomsMenu()
         {
             Console.Clear();
             Console.WriteLine("SEARCH AVAILABLE ROOMS");
@@ -67,7 +67,7 @@ namespace app.Menus
         }
 
         // Metod för att skapa en ny bokning
-        public async void CreateBookingMenu()
+        public async Task CreateBookingMenu()
         {
             Console.Clear();
             Console.WriteLine("CREATE BOOKING");
@@ -93,7 +93,6 @@ namespace app.Menus
             Console.ReadKey();  // Väntar på att användaren trycker på en tangent innan den fortsätter
         }
 
-
         // Metod för att hantera bokningar
         public void ManageBookingsMenu()
         {
@@ -117,31 +116,31 @@ namespace app.Menus
                 switch (choice)
                 {
                     case "1":
-                        AddBookingAddonMenu();
+                        AddBookingAddonMenu().GetAwaiter().GetResult();
                         break;
                     case "2":
-                        UpdateBookingMenu();
+                        UpdateBookingMenu().GetAwaiter().GetResult();
                         break;
                     case "3":
-                        DeleteBookingMenu();
+                        DeleteBookingMenu().GetAwaiter().GetResult();
                         break;
                     case "4":
-                        SearchRoomsByDistanceToBeachMenu();
+                        SearchRoomsByDistanceToBeachMenu().GetAwaiter().GetResult();
                         break;
                     case "5":
-                        SearchRoomsByDistanceToCityCenterMenu();
+                        SearchRoomsByDistanceToCityCenterMenu().GetAwaiter().GetResult();
                         break;
                     case "6":
-                        SortRoomsByPriceMenu();
+                        SortRoomsByPriceMenu().GetAwaiter().GetResult();
                         break;
                     case "7":
-                        SortRoomsByRatingMenu();
+                        SortRoomsByRatingMenu().GetAwaiter().GetResult();
                         break;
                     case "8":
-                        DescribeGroupMenu();
+                        DescribeGroupMenu().GetAwaiter().GetResult();
                         break;
                     case "9":
-                        CombinedSearchMenu();
+                        CombinedSearchMenu().GetAwaiter().GetResult();
                         break;
                     case "10":
                         return;
@@ -153,7 +152,7 @@ namespace app.Menus
         }
 
         // Metod för att lägga till tillägg till en bokning
-        public async void AddBookingAddonMenu()
+        public async Task AddBookingAddonMenu()
         {
             Console.Clear();
             Console.WriteLine("ADD BOOKING ADDON");
@@ -174,7 +173,7 @@ namespace app.Menus
         }
 
         // Metod för att uppdatera en bokning
-        public async void UpdateBookingMenu()
+        public async Task UpdateBookingMenu()
         {
             Console.Clear();
             Console.WriteLine("UPDATE BOOKING");
@@ -195,7 +194,7 @@ namespace app.Menus
         }
 
         // Metod för att avboka
-        public async void DeleteBookingMenu()
+        public async Task DeleteBookingMenu()
         {
             Console.Clear();
             Console.WriteLine("DELETE BOOKING");
@@ -205,14 +204,13 @@ namespace app.Menus
 
             await _queries.DeleteBooking(bookingId);  // Anropar metoden för att ta bort bokningen
 
-            Console.WriteLine("Booking deleted successfully.");  // Visar en bekräftelsemeddelande
+            Console.WriteLine("Booking deleted successfully.");  // Visar en bekräftelsemed
+                        Console.WriteLine("Booking deleted successfully.");  // Visar en bekräftelsemeddelande
             Console.ReadKey();  // Väntar på att användaren trycker på en tangent innan den fortsätter
         }
-    }
-}
 
         // Metod för att söka på boenden baserat på avstånd till strand
-        public async void SearchRoomsByDistanceToBeachMenu()
+        public async Task SearchRoomsByDistanceToBeachMenu()
         {
             Console.Clear();
             Console.WriteLine("SEARCH ROOMS BY DISTANCE TO BEACH");
@@ -232,7 +230,7 @@ namespace app.Menus
         }
 
         // Metod för att söka på boenden baserat på avstånd till centrum
-        public async void SearchRoomsByDistanceToCityCenterMenu()
+        public async Task SearchRoomsByDistanceToCityCenterMenu()
         {
             Console.Clear();
             Console.WriteLine("SEARCH ROOMS BY DISTANCE TO CITY CENTER");
@@ -252,7 +250,7 @@ namespace app.Menus
         }
 
         // Metod för att sortera sökresultat på pris (lågt till högt)
-        public async void SortRoomsByPriceMenu()
+        public async Task SortRoomsByPriceMenu()
         {
             Console.Clear();
             Console.WriteLine("SORT ROOMS BY PRICE (LOW TO HIGH)");
@@ -269,7 +267,7 @@ namespace app.Menus
         }
 
         // Metod för att sortera sökresultat på omdöme (högt till lågt)
-        public async void SortRoomsByRatingMenu()
+        public async Task SortRoomsByRatingMenu()
         {
             Console.Clear();
             Console.WriteLine("SORT ROOMS BY RATING (HIGH TO LOW)");
@@ -286,7 +284,7 @@ namespace app.Menus
         }
 
         // Metod för att beskriva sällskapet
-        public async void DescribeGroupMenu()
+        public async Task DescribeGroupMenu()
         {
             Console.Clear();
             Console.WriteLine("DESCRIBE GROUP");
@@ -306,7 +304,7 @@ namespace app.Menus
         }
 
         // Metod för att kombinera alla sökkriterier
-        public async void CombinedSearchMenu()
+        public async Task CombinedSearchMenu()
         {
             Console.Clear();
             Console.WriteLine("COMBINED SEARCH");
@@ -344,4 +342,3 @@ namespace app.Menus
         }
     }
 }
-

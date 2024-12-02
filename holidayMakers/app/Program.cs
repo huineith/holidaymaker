@@ -8,7 +8,7 @@ namespace app
         static void Main(string[] args)
         {
             // Skapar en ny databasanslutning med konfigurationen
-            DatabaseConfig dbConfig = new DatabaseConfig("localhost", "5544", "postgres", "abc123", "postgres_connector");
+            DatabaseConfig dbConfig = new DatabaseConfig();
 
             // Initialiserar huvudmenyn och kör den
             MainMenu mainMenu = new MainMenu(dbConfig.Connection());

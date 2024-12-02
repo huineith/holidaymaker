@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "jPrgr6xY3Ts=",
+  "dgSpecHash": "MVqkwbZaF5A=",
   "success": true,
   "projectFilePath": "C:\\Users\\Editor Jakupi\\.vscode\\Projekt\\promp-sync-Objektorienterad programmering\\Csharp NBI\\Gruppuppgift\\holidaymaker\\holidayMakers\\app\\app.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Editor Jakupi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Editor Jakupi\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Editor Jakupi\\.nuget\\packages\\npgsql\\9.0.1\\npgsql.9.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
