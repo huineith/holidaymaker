@@ -15,7 +15,8 @@ namespace app.Database
         // Konstruktor för att sätta upp anslutningskonfigurationen
         public DatabaseConfig()
         {
-            _connection = NpgsqlDataSource.Create($"Host={_host};Port={_port};Username={_username};Password={_password};Database={_database}");
+            _connection = NpgsqlDataSource.Create($"Host={_host};Port={_port};Username={_username};Password={_password};Database={_database};Timeout=120;CommandTimeout=120");
+
 
             // Kontroll för att säkerställa anslutningen
             using var conn = _connection.OpenConnection();
