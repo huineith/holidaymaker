@@ -1,6 +1,6 @@
 namespace app;
 
-public enum Sights
+public enum Sight
 {
     Beach=1, 
     CityCenter=2,

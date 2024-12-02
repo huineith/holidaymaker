@@ -1,6 +1,6 @@
 namespace app;
 
-public enum Facilities
+public enum Facility
 {
     Pool=1, 
     Restaurant=2, 
