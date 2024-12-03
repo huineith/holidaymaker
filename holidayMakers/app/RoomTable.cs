@@ -8,9 +8,11 @@ public class RoomTable
     public List<Room> RoomList=new();
     private List<IRoomFilter> _filters = new();
     private List<int> _unbookedIndexes = new();
-    private List<int> _filteredIndexes;
+    public List<int> _filteredIndexes;
     public string HolidayStart;
-    public string HolidayEnd; 
+    public string HolidayEnd;
+    private int _orderBy = 0;
+    private bool _desc = false; 
     
     public RoomTable(NpgsqlDataSource database,string holidayStart, string holidayEnd)
     {
@@ -21,7 +23,7 @@ public class RoomTable
 
 
 
-    public async Task _Load()
+    public async Task Load()
     { 
         await _LoadLocationsTable(); 
         await _LoadRoomTable() ;
@@ -35,7 +37,33 @@ public class RoomTable
         
     public void PrintInfo()
     {
-        ApplyFilters(); 
+        ApplyFilters();
+        switch (_orderBy)
+        {
+            case 0: break; 
+            case 1:  //orderBy id
+                if (_desc)
+                {
+                    _filteredIndexes.Sort((x, y) => RoomList[y].Id.CompareTo(RoomList[x].Id));    
+                }
+                else{_filteredIndexes.Sort((x, y) => RoomList[x].Id.CompareTo(RoomList[y].Id)); }
+                break;
+            case 2:  //orderBy price
+                if (_desc)
+                {
+                    _filteredIndexes.Sort((x, y) => RoomList[y].Price.CompareTo(RoomList[x].Price));    
+                }
+                else{_filteredIndexes.Sort((x, y) => RoomList[x].Price.CompareTo(RoomList[y].Price)); }
+                break;
+            case 3:  //orderBy rating
+                if (_desc)
+                {
+                    _filteredIndexes.Sort((x, y) => RoomList[y].Rating.CompareTo(RoomList[x].Rating));    
+                }
+                else{_filteredIndexes.Sort((x, y) => RoomList[x].Rating.CompareTo(RoomList[y].Rating)); }
+                break;    
+            
+        }
         foreach(int index in _filteredIndexes )
         {
             var room =  RoomList[index];
@@ -45,11 +73,41 @@ public class RoomTable
         
         
     }
-  
+
+
+
+
+    public void OrderById()
+    {
+        _orderBy = 1; //alternative "1"
+        _desc = false; 
+    }
+    public void OrderById(bool desc)
+    {
+        _orderBy = 1;
+        _desc = desc; 
+    }
+    public void OrderByPrice()
+    {
+        _orderBy = 2;
+        _desc = false; 
+    } 
+    public void OrderByPrice(bool desc)
+    {
+        _orderBy = 2;
+        _desc = desc; 
+    }
+    public void OrderByRating()
+    {
+        _orderBy = 3;
+        _desc = false; 
+    }
+    public void OrderByRating(bool desc)
+    {
+        _orderBy = 3;
+        _desc = desc; 
+    }
     
-
-
-
     public  void ResetFilteredIndexes()
     {
         _filteredIndexes=new List<int>(_unbookedIndexes); 
@@ -106,6 +164,12 @@ public class RoomTable
     public void AddFilter(IRoomFilter filter)
     {
         _filters.Add(filter);
+    }
+
+    public void ClearFilters()
+    {
+        ResetFilteredIndexes();
+        _filters.Clear();
     }
    
 
