@@ -12,18 +12,26 @@ public class RoomTable
     public RoomTable(NpgsqlDataSource database)
     {
         _database = database;
-        _LoadLocationsTable();
-        _LoadRoomTable();
-        _LoadFacilities();
-        _LoadSights();
-        _LoadBedsInfo();
-        SetDisplayToAll();
+       _Load();
     }
 
 
 
+    public async List<Room> _Load()
+    { 
+        await _LoadLocationsTable(); 
+        await _LoadRoomTable() ;
+        await _LoadFacilities();
+        await _LoadSights();
+        await _LoadBedsInfo();
+        //SetDisplayToAll();
+        
+        return 
+    }
+        
+    
      
-     private async void _LoadRoomTable()
+     private async Task _LoadRoomTable()
      {
          await using (var cmd = _database.CreateCommand("Select * from rooms")) 
          await using (var reader = await cmd.ExecuteReaderAsync()) 
@@ -34,7 +42,7 @@ public class RoomTable
              }
      }
      
-    private async void _LoadLocationsTable()
+    private async Task _LoadLocationsTable()
     {
         await using (var cmd = _database.CreateCommand("Select * from locations")) 
         await using (var reader = await cmd.ExecuteReaderAsync())
@@ -45,18 +53,20 @@ public class RoomTable
             }
     }
 
-    private async void _LoadFacilities()
+    private async Task _LoadFacilities()
     {
+        Console.WriteLine(RoomList.Count);
         await using (var cmd = _database.CreateCommand("Select * from roomsxfacilities")) 
         await using (var reader = await cmd.ExecuteReaderAsync())
             while (await reader.ReadAsync())
             {   
                 
-                RoomList[reader.GetInt32(0)-1].AddFacility((Facility)reader.GetInt32(1));
+                var tempRoom=   RoomList[reader.GetInt32(0)-1];
+                tempRoom.AddFacility((Facility)reader.GetInt32(1) );
                 
             }
     }
-    private async void _LoadSights()
+    private async Task _LoadSights()
     {
         await using (var cmd = _database.CreateCommand("Select * from sightsxrooms")) 
         await using (var reader = await cmd.ExecuteReaderAsync())
@@ -67,16 +77,17 @@ public class RoomTable
             }
     }
 
-    private async void _LoadBedsInfo()
+    private async Task _LoadBedsInfo()
     {
         await using (var cmd = _database.CreateCommand("Select * from bedsxrooms")) 
         await using (var reader = await cmd.ExecuteReaderAsync())
             while (await reader.ReadAsync())
             {
-                RoomList[reader.GetInt32(0)-1].AddBed(new BedsInfo( (BedType)reader.GetInt32(1), reader.GetInt32(2) ));
+                var tempRoom=   RoomList[reader.GetInt32(0)-1];
+             tempRoom.AddBed(new BedsInfo( (BedType)reader.GetInt32(1), reader.GetInt32(2) ));
 
             }
-
+        
         foreach (var room in RoomList)
         {
          room.CalcBedPlaces();   
@@ -141,6 +152,15 @@ public class RoomTable
 
         return filteredList;
     }
+
+    public List<Room> GetRoomLiST()
+    {
+        return RoomList; 
+    }
+
+
+    private List<int> indexRooms; 
+    private List<int> filteredRooms;
 
 
 

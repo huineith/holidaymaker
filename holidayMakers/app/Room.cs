@@ -10,7 +10,7 @@ public class Room
     public  double Rating;
     public double  BedPlaces;
     private List<BedsInfo> _bedList=new(); 
-    private   List<Facility> _facilities=new();
+    private  List<Facility> _facilities=new();
     private  List<SightsInfo> _sights=new();
     
     
