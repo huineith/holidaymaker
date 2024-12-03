@@ -12,21 +12,21 @@ public class RoomTable
     public RoomTable(NpgsqlDataSource database)
     {
         _database = database;
-       _Load();
+    
     }
 
 
 
-    public async List<Room> _Load()
+    public async Task _Load()
     { 
         await _LoadLocationsTable(); 
         await _LoadRoomTable() ;
         await _LoadFacilities();
         await _LoadSights();
         await _LoadBedsInfo();
-        //SetDisplayToAll();
+        await SetDisplayToAll();
         
-        return 
+       
     }
         
     
@@ -96,7 +96,7 @@ public class RoomTable
     }
 
 
-    public void SetDisplayToAll()
+    public async Task SetDisplayToAll()
     {   
         _displayedIndexes.Clear();
         for (int i = 0; i < RoomList.Count; i++)

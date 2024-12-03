@@ -11,6 +11,7 @@ var myconnection = mydb.Connection();
 
 var roomTable = new RoomTable(myconnection);
 
+await roomTable._Load();
 
 roomTable.PrintInfo();
 
