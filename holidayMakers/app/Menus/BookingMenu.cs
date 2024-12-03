@@ -49,6 +49,8 @@ public class BookingMenu
             Console.WriteLine($"   3. Show locations\u001b[0m");
             Console.WriteLine($"   4. Show rooms\u001b[0m");
             Console.WriteLine($"   5. Go back.");
+            Console.WriteLine($"   5. Create booking.v2.");
+            
             Console.WriteLine("\n");
             int option = int.Parse(Console.ReadLine());
 
@@ -56,6 +58,17 @@ public class BookingMenu
             {
                 case 1:
                     Console.Clear();
+                    Console.WriteLine("What room would you like to book?");
+                    int pickedRoomId = int.Parse(Console.ReadLine());
+                    Console.WriteLine("What date would you like to check in? (enter YYYY-MM-DD");
+                    DateTime newStartDate = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine(newStartDate);
+                    Console.WriteLine("To when?");
+                    DateTime newEndDate = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine(newEndDate);
+                    
+                    
+                    
                     for (int i = 0; i < LocationList.Count; i++)
                     {
                         Console.WriteLine($"{LocationList[i].Id}. {LocationList[i].Country} : {LocationList[i].Name}");
@@ -98,11 +111,11 @@ public class BookingMenu
 
                                 }
                             }
-
                             Console.WriteLine($"Total bedspots: {totalPpl}");
                             Console.WriteLine("________\n");
                         }
                     }
+                   
                     
                     break;
                 case 2:
@@ -196,6 +209,33 @@ public class BookingMenu
                     break;
                 case 5:
                     run = false;
+                    break;
+                case 6:
+                    
+                    {
+                        Console.Clear();
+                        Console.WriteLine("CREATE BOOKING");
+
+                        Console.Write("Admin ID: ");
+                        int adminId = int.Parse(Console.ReadLine());  // Läser in administratörens ID från användaren och konverterar det till int
+
+                        Console.Write("Room ID: ");
+                        int roomId = int.Parse(Console.ReadLine());  // Läser in rummets ID från användaren och konverterar det till int
+
+                        Console.Write("Guest ID: ");
+                        int guestId = int.Parse(Console.ReadLine());  // Läser in gästens ID från användaren och konverterar det till int
+
+                        Console.Write("Start Date (yyyy-mm-dd): ");
+                        DateTime startDate = DateTime.Parse(Console.ReadLine());  // Läser in startdatumet från användaren och konverterar det till DateTime-format
+
+                        Console.Write("End Date (yyyy-mm-dd): ");
+                        DateTime endDate = DateTime.Parse(Console.ReadLine());  // Läser in slutdatumet från användaren och konverterar det till DateTime-format
+
+                        await _queries.CreateBooking(adminId, roomId, guestId, startDate, endDate);  // Anropar metoden för att skapa en ny bokning
+
+                        Console.WriteLine("Booking created successfully.");  // Visar en bekräftelsemeddelande
+                        Console.ReadKey();  // Väntar på att användaren trycker på en tangent innan den fortsätter
+                    }
                     break;
             }
             run = false;

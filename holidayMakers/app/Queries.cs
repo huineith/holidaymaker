@@ -110,7 +110,7 @@ public class Queries
     public async Task<List<Booking>> ReadBookings()
     {
         var bookinglist = new List<Booking>();
-        await using(var cmd = _database.CreateCommand("SELECT * FROM bookings"))
+        await using(var cmd = _database.CreateCommand("SELECT * FROM bookings ORDER BY room"))
             await using (var reader = await cmd.ExecuteReaderAsync())
                 while (await reader.ReadAsync())
                 {
@@ -201,6 +201,26 @@ public class Queries
             cmd.Parameters.AddWithValue(regdate);
             
             await cmd.ExecuteNonQueryAsync();
+        }
+        
+    }
+    public async Task CreateBooking(int admin, int room, int guest, DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            await using (var cmd = _database.CreateCommand("INSERT INTO bookings (admin, room, guest, startDate, endDate) VALUES ($1, $2, $3, $4, $5)"))
+            {
+                cmd.Parameters.AddWithValue(admin);
+                cmd.Parameters.AddWithValue(room);
+                cmd.Parameters.AddWithValue(guest);
+                cmd.Parameters.AddWithValue(startDate);
+                cmd.Parameters.AddWithValue(endDate);
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating booking: {ex.Message}");
         }
     }
     public async Task BlockUser(int ind, bool blocker)
