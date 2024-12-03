@@ -5,8 +5,9 @@ public class RoomTable
 {       
     private NpgsqlDataSource _database;
     private List<Location> _locationList=new();
-    private List<Room> RoomList=new(); 
-    
+    public List<Room> RoomList=new();
+    private List<IRoomFilter> _filters = new();
+    private List<int> _displayedIndexes = new(); 
     
     public RoomTable(NpgsqlDataSource database)
     {
@@ -16,6 +17,7 @@ public class RoomTable
         _LoadFacilities();
         _LoadSights();
         _LoadBedsInfo();
+        SetDisplayToAll();
     }
 
 
@@ -48,9 +50,10 @@ public class RoomTable
         await using (var cmd = _database.CreateCommand("Select * from roomsxfacilities")) 
         await using (var reader = await cmd.ExecuteReaderAsync())
             while (await reader.ReadAsync())
-            {
+            {   
+                
                 RoomList[reader.GetInt32(0)-1].AddFacility((Facility)reader.GetInt32(1));
-
+                
             }
     }
     private async void _LoadSights()
@@ -82,7 +85,14 @@ public class RoomTable
     }
 
 
-
+    public void SetDisplayToAll()
+    {   
+        _displayedIndexes.Clear();
+        for (int i = 0; i < RoomList.Count; i++)
+        {
+            _displayedIndexes.Add(i);
+        }
+    }
     public void PrintInfo()
     {
         foreach(var room in RoomList)
@@ -92,6 +102,44 @@ public class RoomTable
         }
         
         
+    }
+
+
+    public void FilterInfo()
+    {
+        for (int j = 0; j < _filters.Count; j++)
+        {
+            Console.WriteLine($"filter:{j},{_filters[j].FilterInfo()}");
+        }
+    }
+    public void ApplyFilter()
+    {
+        foreach (IRoomFilter filter in _filters)
+        {
+            _displayedIndexes = _Checkfilter(_displayedIndexes, filter);
+            if (_displayedIndexes.Count == 0)
+            {
+                Console.WriteLine("No Valid Results");
+                break; 
+            } ; 
+        }
+      
+    }
+    
+    private List<int> _Checkfilter(List<int> unFiltered,IRoomFilter filter)
+    {
+        List<int> filteredList = new();
+        foreach (int index in unFiltered)
+        {
+            Room selectedRoom = RoomList[index];
+            if (filter.Filter(selectedRoom))
+            {
+                filteredList.Add(index);
+            }
+            
+        }
+
+        return filteredList;
     }
 
 

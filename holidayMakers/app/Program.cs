@@ -9,10 +9,12 @@ Console.WriteLine("Hello, World!");
 Database mydb = new Database();
 var myconnection = mydb.Connection();
 
+var roomTable = new RoomTable(myconnection);
 
-var roomTable = new RoomTable(myconnection); 
+roomTable.RoomList[1].PrintInfo();
 
-roomTable.PrintInfo();
+// FacilityFilter myFirstFilter = new FacilityFilter();
+// myFirstFilter.RequiredFacilities.Add(Facility.Pool);
 
 
 // for (int i = 2; i < 5; i++)
