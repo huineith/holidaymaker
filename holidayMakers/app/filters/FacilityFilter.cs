@@ -3,39 +3,27 @@ namespace app;
 public class FacilityFilter : IRoomFilter
 {
     private bool _passed = true; 
-    public  List<Facility> RequiredFacilities =new ();
+    public  Facility RequiredFacility ;
     
     public FacilityFilter()
     {
        
     }
-    public FacilityFilter(List<Facility> filterList)
+    public FacilityFilter(Facility filteringFacility)
     {
-        RequiredFacilities = filterList;
+        RequiredFacility = filteringFacility;
     }
 
     public bool Filter(Room room )
     { 
         var facilityList = room.GetFacilities();
-        foreach (var facility in RequiredFacilities)
-        {
-            _passed = facilityList.Exists(x => x == facility);
-            if (!_passed)
-            {
-                return _passed;
-            }
-            
-        } 
+        _passed = facilityList.Exists(x => x == RequiredFacility);
+        
         return _passed; 
     }
     public string FilterInfo()
     {
-        string info = "Has facilities:";
-        foreach (var facility in RequiredFacilities)
-        {
-            info += $"{facility},";
-        }
-
+        string info = $"rooms have {RequiredFacility},";
         return info; 
     }
 

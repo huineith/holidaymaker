@@ -16,6 +16,23 @@ await roomTable._Load();
 roomTable.PrintInfo();
 
 
+
+List<int> myList = new List<int>() { 1, 2, 3 };
+
+int filter = 2;
+int index=-1; 
+for (int i = 0; i < myList.Count; i++)
+{
+    index += 1; 
+    if (myList[i] == filter)
+    {
+        break;
+    }
+}
+
+Console.WriteLine(index);
+
+
 // FacilityFilter myFirstFilter = new FacilityFilter();
 // myFirstFilter.RequiredFacilities.Add(Facility.Pool);
 
