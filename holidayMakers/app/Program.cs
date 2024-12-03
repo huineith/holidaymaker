@@ -9,28 +9,36 @@ Console.WriteLine("Hello, World!");
 Database mydb = new Database();
 var myconnection = mydb.Connection();
 
-var roomTable = new RoomTable(myconnection);
+// Console.WriteLine("give holiday start yyyy-MM-dd HH:mm ");
+// String holidayStart = Console.ReadLine(); 
+String holidayStart = "2024-12-05";  
+// Console.WriteLine("give holiday end 'yyyy-MM-dd HH:mm' ");
+// String holidayEnd = Console.ReadLine(); 
+String holidayEnd = "2024-12-07"; 
+
+
+var roomTable = new RoomTable(myconnection,holidayStart,holidayEnd);
 
 await roomTable._Load();
 
+roomTable.AddFilter(new FacilityFilter(Facility.Pool)); 
+roomTable.AddFilter(new SightsFilter(Sight.Beach, 300 ));
 roomTable.PrintInfo();
 
+roomTable.PrintFilterInfo();
+// roomTable.RemoveFilter(2);
+// roomTable.PrintInfo();
+
+// List<int> myList = new List<int>() { 2, 1, 3 };
+//
+// myList.Sort((x,y)=> y.CompareTo(x));
+//
+// foreach (var i in myList)
+// {
+//     Console.WriteLine(i);
+// }
 
 
-List<int> myList = new List<int>() { 1, 2, 3 };
-
-int filter = 2;
-int index=-1; 
-for (int i = 0; i < myList.Count; i++)
-{
-    index += 1; 
-    if (myList[i] == filter)
-    {
-        break;
-    }
-}
-
-Console.WriteLine(index);
 
 
 // FacilityFilter myFirstFilter = new FacilityFilter();

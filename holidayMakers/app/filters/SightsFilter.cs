@@ -32,9 +32,9 @@ public class SightsFilter : IRoomFilter
             }            
         }
 
-        if (_comparison)
+        if (_comparison && _passed)
         { 
-            _passed = sightsList[index].Distance < _distance; 
+            _passed = sightsList[index].Distance <= _distance; 
         }
         
         return _passed;

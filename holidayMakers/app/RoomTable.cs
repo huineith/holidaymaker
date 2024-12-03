@@ -4,15 +4,19 @@ using Npgsql;
 public class RoomTable
 {       
     private NpgsqlDataSource _database;
-    private List<Location> _locationList=new();
+    public List<Location> LocationList=new();
     public List<Room> RoomList=new();
     private List<IRoomFilter> _filters = new();
-    private List<int> _displayedIndexes = new(); 
+    private List<int> _unbookedIndexes = new();
+    private List<int> _filteredIndexes;
+    public string HolidayStart;
+    public string HolidayEnd; 
     
-    public RoomTable(NpgsqlDataSource database)
+    public RoomTable(NpgsqlDataSource database,string holidayStart, string holidayEnd)
     {
         _database = database;
-    
+        HolidayStart = holidayStart;
+        HolidayEnd = holidayEnd;
     }
 
 
@@ -24,20 +28,95 @@ public class RoomTable
         await _LoadFacilities();
         await _LoadSights();
         await _LoadBedsInfo();
-        await SetDisplayToAll();
+        await LoadTimeFilteredRooms();
         
        
     }
         
+    public void PrintInfo()
+    {
+        ApplyFilters(); 
+        foreach(int index in _filteredIndexes )
+        {
+            var room =  RoomList[index];
+            Console.WriteLine("-------------------------------------");
+            room.PrintInfo();
+        }
+        
+        
+    }
+  
     
-     
+
+
+
+    public  void ResetFilteredIndexes()
+    {
+        _filteredIndexes=new List<int>(_unbookedIndexes); 
+    }
+    
+  
+
+  
+
+    public void PrintFilterInfo()
+    {
+        for (int j = 0; j < _filters.Count; j++)
+        {   Console.WriteLine("-------------------------------------");
+            Console.WriteLine($"filter:{j},{_filters[j].FilterInfo()}");
+        }
+    }
+
+    public void RemoveFilter(int index)
+    {
+        _filters.RemoveAt(index);
+        ResetFilteredIndexes();
+    }
+    public void ApplyFilters()
+    {
+        foreach (IRoomFilter filter in _filters)
+        {
+          
+             _filteredIndexes = _Checkfilter( filter);
+            if (_filteredIndexes.Count == 0)
+            {
+                Console.WriteLine("No Valid Results");
+                break; 
+            } ; 
+        }
+      
+    }
+    
+    private List<int> _Checkfilter( IRoomFilter filter)
+    {
+        List<int> passedIndexes = new();
+        
+        foreach (var index in _filteredIndexes)
+        {
+            Room selectedRoom = RoomList[index];
+            if (filter.Filter(selectedRoom))
+            {
+                passedIndexes.Add(index);
+            }
+        }
+
+        return passedIndexes; 
+    }
+
+    public void AddFilter(IRoomFilter filter)
+    {
+        _filters.Add(filter);
+    }
+   
+
+
      private async Task _LoadRoomTable()
      {
          await using (var cmd = _database.CreateCommand("Select * from rooms")) 
          await using (var reader = await cmd.ExecuteReaderAsync()) 
              while ( await reader.ReadAsync())
              {
-                 RoomList.Add(new Room(reader.GetInt32(0), (Size)reader.GetInt32(1), _locationList[reader.GetInt32(2)-1],reader.GetDouble(3),
+                 RoomList.Add(new Room(reader.GetInt32(0), (Size)reader.GetInt32(1), LocationList[reader.GetInt32(2)-1],reader.GetDouble(3),
                      reader.GetDouble(4)));
              }
      }
@@ -48,7 +127,7 @@ public class RoomTable
         await using (var reader = await cmd.ExecuteReaderAsync())
             while (await reader.ReadAsync())
             {
-                _locationList.Add(new Location((City)reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                LocationList.Add(new Location((City)reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
 
             }
     }
@@ -94,74 +173,25 @@ public class RoomTable
         }
         
     }
-
-
-    public async Task SetDisplayToAll()
-    {   
-        _displayedIndexes.Clear();
-        for (int i = 0; i < RoomList.Count; i++)
-        {
-            _displayedIndexes.Add(i);
-        }
-    }
-    public void PrintInfo()
-    {
-        foreach(var room in RoomList)
-        {
-            Console.WriteLine("-------------------------------------");
-            room.PrintInfo();
-        }
-        
-        
-    }
-
-
-    public void FilterInfo()
-    {
-        for (int j = 0; j < _filters.Count; j++)
-        {
-            Console.WriteLine($"filter:{j},{_filters[j].FilterInfo()}");
-        }
-    }
-    public void ApplyFilter()
-    {
-        foreach (IRoomFilter filter in _filters)
-        {
-            _displayedIndexes = _Checkfilter(_displayedIndexes, filter);
-            if (_displayedIndexes.Count == 0)
-            {
-                Console.WriteLine("No Valid Results");
-                break; 
-            } ; 
-        }
-      
-    }
     
-    private List<int> _Checkfilter(List<int> unFiltered,IRoomFilter filter)
-    {
-        List<int> filteredList = new();
-        foreach (int index in unFiltered)
-        {
-            Room selectedRoom = RoomList[index];
-            if (filter.Filter(selectedRoom))
+    public async Task LoadTimeFilteredRooms()
+    {   
+        
+        string sq1=$" (select room from bookings where  (bookings.startdate between '{HolidayStart}' And '{HolidayEnd}'))" ;
+        string sq2=$" (select room from bookings where  (bookings.enddate between '{HolidayStart}' And '{HolidayEnd}'))" ;
+        string query = "Select * from rooms where id not in "+sq1 +" and id not in "+sq2;
+       
+        await using (var cmd = _database.CreateCommand(query )) 
+        await using (var reader = await cmd.ExecuteReaderAsync()) 
+            while ( await reader.ReadAsync())
             {
-                filteredList.Add(index);
+                _unbookedIndexes.Add(reader.GetInt32(0)-1); 
+        
+     
             }
-            
-        }
 
-        return filteredList;
+        ResetFilteredIndexes();
+        
     }
-
-    public List<Room> GetRoomLiST()
-    {
-        return RoomList; 
-    }
-
-
-    private List<int> indexRooms; 
-    private List<int> filteredRooms;
-
-
 
 }
