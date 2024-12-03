@@ -49,7 +49,7 @@ public class BookingMenu
             Console.WriteLine($"   3. Show locations\u001b[0m");
             Console.WriteLine($"   4. Show rooms\u001b[0m");
             Console.WriteLine($"   5. Go back.");
-            Console.WriteLine($"   5. Create booking.v2.");
+            Console.WriteLine($"   6. Create booking.v2.");
             
             Console.WriteLine("\n");
             int option = int.Parse(Console.ReadLine());
@@ -66,8 +66,11 @@ public class BookingMenu
                     Console.WriteLine("To when?");
                     DateTime newEndDate = DateTime.Parse(Console.ReadLine());
                     Console.WriteLine(newEndDate);
-                    
-                    
+
+                    foreach (var booking in _bookings)
+                    {
+                        
+                    }
                     
                     for (int i = 0; i < LocationList.Count; i++)
                     {
@@ -83,7 +86,6 @@ public class BookingMenu
                         {
                             int totalPpl = 0;
                             Console.WriteLine($"id: {room._id}\n" +
-                                              $"{room._name}\n" +
                                               $"Rating: {room._rating}");
                             Console.WriteLine($"Price per night: {room._priceDay} USD");
                             
@@ -131,7 +133,7 @@ public class BookingMenu
                             if (booking._room == room._id)
                             {
                                 Console.WriteLine(
-                                    $"Place: {room._name}\n" +
+                                    
                                     $"Room ID: {room._id}\n"
                                 );
                             }
@@ -177,7 +179,6 @@ public class BookingMenu
                     {
                         int totalPpl = 0;
                         Console.WriteLine($"id: {Room._id}\n" +
-                                          $"{Room._name}\n" +
                                           $"Rating: {Room._rating}");
                         Console.WriteLine($"Price per night: {Room._priceDay} USD");
                         foreach (var location in LocationList)
@@ -217,7 +218,7 @@ public class BookingMenu
                         Console.WriteLine("CREATE BOOKING");
 
                         Console.Write("Admin ID: ");
-                        int adminId = int.Parse(Console.ReadLine());  // Läser in administratörens ID från användaren och konverterar det till int
+                        int adminId = int.Parse(Console.ReadLine());  
 
                         Console.Write("Room ID: ");
                         int roomId = int.Parse(Console.ReadLine());  // Läser in rummets ID från användaren och konverterar det till int

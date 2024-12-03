@@ -48,18 +48,18 @@ public class GuestMenu
             
                     switch (option)
                     {
-                        case 1: // Alter guests
+                        case 1: 
                             Console.Clear();
                             bool altered = await _guest.AlterGuest(guestlist);
                             if (altered)
                             {
                                 Console.WriteLine("Guest data has been altered. Returning to the main menu...");
-                                await Task.Delay(1000); // Optional: Add a slight delay to show the message
-                                run = false; // Exit loop and return control to MainMenu
+                                await Task.Delay(1000); 
+                                run = false; 
                             }
 
                             break;
-                        case 2: // Create new guest
+                        case 2: 
                             Console.Clear();
                             Console.WriteLine("Enter the guest info.");
                             Console.WriteLine("Email: ");

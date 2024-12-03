@@ -19,5 +19,6 @@ MainMenu mainMenu = new MainMenu(_queries);
 bool run = true;
 while (run)
 {
-    await mainMenu.RunMenu();
+    run = await mainMenu.RunMenu();
+    
 }
