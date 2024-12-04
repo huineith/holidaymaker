@@ -142,6 +142,22 @@ public class Queries
         return RoomList;
     }
     
+    public async Task DeleteBooking(int id)
+    {
+        try
+        {
+            await using (var cmd = _database.CreateCommand("DELETE FROM bookings WHERE id = $1"))
+            {
+                cmd.Parameters.AddWithValue(id);
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting booking: {ex.Message}");
+        }
+    }
+    
 
     public async Task<List<BedXRoom>> GetBedXrooms()
     {

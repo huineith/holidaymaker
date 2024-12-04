@@ -19,9 +19,6 @@ public class MainMenu
     public async Task<bool> RunMenu()
     {
         
-        
-        
-        
         bool run = true;
         
         while (run)
@@ -32,7 +29,7 @@ public class MainMenu
             
             Console.WriteLine($"   1. Guests\u001b[0m");
             Console.WriteLine($"   2. Bookings\u001b[0m");
-            Console.WriteLine($"   3. Create booking\u001b[0m");
+            Console.WriteLine($"   3. (empty)\u001b[0m");
             Console.WriteLine($"   4. Exit program.\u001b[0m");
             Console.WriteLine("\n");
             int option = int.Parse(Console.ReadLine());
@@ -47,7 +44,7 @@ public class MainMenu
                             await _bookingMenu.RunMenu();
                             break;
                         case 3:
-                            Console.Clear();
+                            /*Console.Clear();
                             Console.WriteLine("CREATE BOOKING");
 
                             Console.Write("Admin ID: ");
@@ -65,7 +62,7 @@ public class MainMenu
                             Console.Write("End Date (yyyy-mm-dd): ");
                             DateTime endDate = DateTime.Parse(Console.ReadLine());  // Läser in slutdatumet från användaren och konverterar det till DateTime-format
 
-                            await _queries.CreateBooking(adminId, roomId, guestId, startDate, endDate);
+                            await _queries.CreateBooking(adminId, roomId, guestId, startDate, endDate);*/
 
                             break;
                         case 4:
@@ -74,8 +71,6 @@ public class MainMenu
                             return false;
                         
                     }
-                    
-                    
         }
 
         return true;

@@ -44,12 +44,14 @@ public class BookingMenu
 
         while (run)
         {
-            Console.WriteLine($"   1. Create Booking\u001b[0m");
+            Console.WriteLine($"   1. Create Booking(dont use)\u001b[0m");
             Console.WriteLine($"   2. List bookings\u001b[0m");
             Console.WriteLine($"   3. Show locations\u001b[0m");
             Console.WriteLine($"   4. Show rooms\u001b[0m");
             Console.WriteLine($"   5. Go back.");
             Console.WriteLine($"   6. Create booking.v2.");
+            Console.WriteLine($"   7. Delete booking.v2.");
+            
             
             Console.WriteLine("\n");
             int option = int.Parse(Console.ReadLine());
@@ -238,6 +240,21 @@ public class BookingMenu
                         Console.ReadKey();  // Väntar på att användaren trycker på en tangent innan den fortsätter
                     }
                     break;
+                
+                case 7:
+                    
+                        Console.Clear();
+                        Console.WriteLine("DELETE BOOKING");
+
+                        Console.Write("Booking ID: ");
+                        int bookingId = int.Parse(Console.ReadLine());  // Läser in boknings-ID från användaren och konverterar det till int
+
+                        await _queries.DeleteBooking(bookingId);  // Anropar metoden för att ta bort bokningen
+
+                        Console.WriteLine("Booking deleted successfully.");  
+                        
+                        Console.ReadKey();  // Väntar på att användaren trycker på en tangent innan den fortsätter
+                        break;
             }
             run = false;
             break;
