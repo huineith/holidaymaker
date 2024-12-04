@@ -238,7 +238,7 @@ public class RoomTable
         
     }
     
-    public async Task LoadTimeFilteredRooms()
+    public async Task LoadTimeFilteredRooms() //LoadAvailble rooms.  _AvailbableRooms() 
     {   
         
         string sq1=$" (select room from bookings where  (bookings.startdate between '{HolidayStart}' And '{HolidayEnd}'))" ;
@@ -249,7 +249,7 @@ public class RoomTable
         await using (var reader = await cmd.ExecuteReaderAsync()) 
             while ( await reader.ReadAsync())
             {
-                _unbookedIndexes.Add(reader.GetInt32(0)-1); 
+                _unbookedIndexes.Add(reader.GetInt32(0)-1); //reader.getINt32(0); 
         
      
             }
@@ -257,5 +257,12 @@ public class RoomTable
         ResetFilteredIndexes();
         
     }
+
+    
+    // public bool checkAvialbiltiy(int id)
+    // {
+    //     bool free = _availableRooms.Exists(x => x == id); //bool true om rumet är ledigt false else;  
+    //    return free; 
+    // }
 
 }
