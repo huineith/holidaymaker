@@ -60,8 +60,7 @@ public class BookingMenu
             {
                 case 1:
                     Console.Clear();
-                    Console.WriteLine("What room would you like to book?");
-                    int pickedRoomId = int.Parse(Console.ReadLine());
+                    
                     Console.WriteLine("What date would you like to check in? (enter YYYY-MM-DD");
                     DateTime newStartDate = DateTime.Parse(Console.ReadLine());
                     Console.WriteLine(newStartDate);
@@ -118,7 +117,10 @@ public class BookingMenu
                             Console.WriteLine($"Total bedspots: {totalPpl}");
                             Console.WriteLine("________\n");
                         }
+                        
                     }
+                    Console.WriteLine("What room would you like to book?");
+                    int pickedRoomId = int.Parse(Console.ReadLine());
                    
                     
                     break;
@@ -223,21 +225,20 @@ public class BookingMenu
                         int adminId = int.Parse(Console.ReadLine());  
 
                         Console.Write("Room ID: ");
-                        int roomId = int.Parse(Console.ReadLine());  // Läser in rummets ID från användaren och konverterar det till int
+                        int roomId = int.Parse(Console.ReadLine());  
 
                         Console.Write("Guest ID: ");
-                        int guestId = int.Parse(Console.ReadLine());  // Läser in gästens ID från användaren och konverterar det till int
+                        int guestId = int.Parse(Console.ReadLine());  
 
                         Console.Write("Start Date (yyyy-mm-dd): ");
-                        DateTime startDate = DateTime.Parse(Console.ReadLine());  // Läser in startdatumet från användaren och konverterar det till DateTime-format
+                        DateTime startDate = DateTime.Parse(Console.ReadLine());  
 
                         Console.Write("End Date (yyyy-mm-dd): ");
-                        DateTime endDate = DateTime.Parse(Console.ReadLine());  // Läser in slutdatumet från användaren och konverterar det till DateTime-format
+                        DateTime endDate = DateTime.Parse(Console.ReadLine());   
 
-                        await _queries.CreateBooking(adminId, roomId, guestId, startDate, endDate);  // Anropar metoden för att skapa en ny bokning
+                        await _queries.CreateBooking(adminId, roomId, guestId, startDate, endDate);  
 
-                        Console.WriteLine("Booking created successfully.");  // Visar en bekräftelsemeddelande
-                        Console.ReadKey();  // Väntar på att användaren trycker på en tangent innan den fortsätter
+                        Console.WriteLine("Booking created successfully.");  
                     }
                     break;
                 

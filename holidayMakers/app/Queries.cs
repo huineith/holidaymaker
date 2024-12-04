@@ -25,14 +25,14 @@ public class Queries
                 if (reader.Read())
                 {
                     return new Guest(
-                        reader.GetInt32(0), // Assuming the ID is the first column
-                        reader.GetString(1), // Assuming email is the second column
-                        reader.GetString(2), // Assuming first name
-                        reader.GetString(3), // Assuming last name
-                        reader.GetString(4), // Assuming phone
-                        reader.GetDateTime(5).ToShortDateString(), // Assuming date of birth
+                        reader.GetInt32(0), 
+                        reader.GetString(1), 
+                        reader.GetString(2), 
+                        reader.GetString(3), 
+                        reader.GetString(4), 
+                        reader.GetDateTime(5).ToShortDateString(), 
                         reader.GetDateTime(6),
-                        reader.GetBoolean(7) ? "Blocked" : "No"  // Assuming "Blocked" is the 7th column
+                        reader.GetBoolean(7) ? "Blocked" : "No"  
 
                     );
                 }

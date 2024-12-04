@@ -13,8 +13,6 @@ var myconnection = mydb.Connection();
 
 Queries _queries = new Queries(myconnection);
 
-Console.WriteLine("OSKAR TEST BRANCH");
-
 MainMenu mainMenu = new MainMenu(_queries);
 bool run = true;
 while (run)
