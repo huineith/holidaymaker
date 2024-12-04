@@ -198,7 +198,7 @@ public class RoomTable
 
     private async Task _LoadFacilities()
     {
-        Console.WriteLine(RoomList.Count);
+        
         await using (var cmd = _database.CreateCommand("Select * from roomsxfacilities")) 
         await using (var reader = await cmd.ExecuteReaderAsync())
             while (await reader.ReadAsync())

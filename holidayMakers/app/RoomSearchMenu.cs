@@ -182,7 +182,7 @@ public class RoomSearchMenu
             case 5:
                 Console.WriteLine("\n \n");
                 _roomInfoTable.PrintInfo();
-                Console.WriteLine("\n \n");
+                Console.WriteLine("-------------------------------------");
                 break; 
             case 6: run = false;
                 break; 
