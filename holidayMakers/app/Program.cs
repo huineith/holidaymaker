@@ -11,9 +11,7 @@ Database mydb = new Database();
 var myconnection = mydb.Connection(); 
 
 
-Queries _queries = new Queries(myconnection);
-
-MainMenu mainMenu = new MainMenu(_queries);
+MainMenu mainMenu = new MainMenu(myconnection);
 bool run = true;
 while (run)
 {

@@ -4,18 +4,20 @@ using app.RoomSearch;
 using Npgsql; 
 public class RoomSearchMenu
 {
-    private RoomTable _roomInfoTable; 
+    private RoomTable _roomInfoTable;
+    private NpgsqlDataSource _database;
     public RoomSearchMenu(NpgsqlDataSource database)
     {
+        _database = database;
 
 
-        DateTime holidayStart = inputDateTime(DateTime.Now, "Input holiday start date yyyy-MM-dd HH:mm ");
-        DateTime holidayEnd = inputDateTime(holidayStart, "Input holiday end date 'yyyy-MM-dd HH:mm' ");
-        _roomInfoTable=new RoomTable(database, holidayStart, holidayEnd);
     }
 
     public async Task RunMenu()
     {   
+         DateTime holidayStart = inputDateTime(DateTime.Now, "Input holiday start date yyyy-MM-dd HH:mm ");
+         DateTime holidayEnd = inputDateTime(holidayStart, "Input holiday end date 'yyyy-MM-dd HH:mm' ");
+        _roomInfoTable=new RoomTable(_database, holidayStart, holidayEnd);
         var run = true;
         await _roomInfoTable.Load();
         Console.ForegroundColor = ConsoleColor.Cyan;
