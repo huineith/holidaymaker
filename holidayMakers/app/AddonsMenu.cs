@@ -56,7 +56,41 @@ public class AddonsMenu
                     Console.WriteLine($"id: {booking._id }, room id:{booking._room}, booking start:{booking._startDate.ToString("yyyy-MM-dd hh:mm")},booking end:{booking._endDate.ToString("yyyy-MM-dd hh:mm")}   ");
                 }
                 break;
-            case 2: // to be done 
+            case 2:
+                string bookingIdstring = "bookings:"; 
+                foreach (var booking in _guestBookings)
+                {
+                    bookingIdstring += $"{booking._id}, ";
+                }
+                Console.WriteLine("Select booking to add to:");
+                Console.WriteLine(bookingIdstring);
+                Console.WriteLine("select -1 to abort");
+                bool correctBookingId;
+                int choosenBooking;
+                do
+                {    choosenBooking = int.Parse(Console.ReadLine());
+                    correctBookingId = _guestBookings.Exists(x => x._id == choosenBooking);    
+                } while (!correctBookingId);
+
+                if (correctBookingId)
+                {
+                   Console.WriteLine("choose addOn by id");
+                    Console.WriteLine("-----------------------------------------");
+                    foreach (var addon in _addons)
+                    {
+                        Console.WriteLine($"id:{addon._id},addOn:{addon._name},price:{addon._price}"); 
+                    }
+                    Console.WriteLine("-----------------------------------------");
+                    int choosenAddon= int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("-----------------------------------------");
+                    Console.WriteLine($"How many {_addons[choosenAddon-1]._name} would you like to add?:");
+                    int choosenAmount=int.Parse(Console.ReadLine());
+
+                    _queries.AddNewAddon(choosenBooking, choosenAddon, choosenAmount); 
+                    
+                    Console.WriteLine("extra choices booked");
+                }
                 break;
             case 3:
                 // to be done 
@@ -86,7 +120,7 @@ public class AddonsMenu
            Console.WriteLine($"  Select Guest By: ");
            Console.WriteLine($"   1. by Guest Id");
            Console.WriteLine($"   2. by Email");
-           Console.WriteLine($"   3. return To main Menu");
+           Console.WriteLine($"   3. return to main menu");
            
            int option = int.Parse(Console.ReadLine());
            Console.Clear();

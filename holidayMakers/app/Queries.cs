@@ -235,7 +235,8 @@ public class Queries
         return guestList;
     }
 
-    public async void AddNewGuest(string email,string fname, string lname, string phone, DateTime bDate, DateTime regdate)
+    public async void AddNewGuest(string email, string fname, string lname, string phone, DateTime bDate,
+        DateTime regdate)
     {
         await using (var cmd = _database.CreateCommand(
                          $"INSERT INTO GUESTS(email,firstname,lastname,phone,dateofbirth,regdate) " +
@@ -247,10 +248,22 @@ public class Queries
             cmd.Parameters.AddWithValue(phone);
             cmd.Parameters.AddWithValue(bDate);
             cmd.Parameters.AddWithValue(regdate);
-            
+
             await cmd.ExecuteNonQueryAsync();
         }
-        
+    }
+
+    public async void AddNewAddon(int booking, int addon, int amount)
+    {
+            await using (var cmd = _database.CreateCommand(
+                             $"INSERT INTO addonsxbookings(booking,addon,amount) " +
+                             "VALUES ($1,$2,$3)"))
+            {
+                cmd.Parameters.AddWithValue(booking);
+                cmd.Parameters.AddWithValue(addon);
+                cmd.Parameters.AddWithValue(amount);
+                await cmd.ExecuteNonQueryAsync();
+            }
     }
     public async Task CreateBooking(int admin, int room, int guest, DateTime startDate, DateTime endDate)
     {
