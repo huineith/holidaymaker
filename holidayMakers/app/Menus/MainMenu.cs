@@ -1,5 +1,6 @@
 using System.Threading.Channels;
 using System.Xml.Xsl;
+using Npgsql;
 
 namespace app.Menus;
 
@@ -7,12 +8,17 @@ public class MainMenu
 {
     private GuestMenu _guestMenu;
     private BookingMenu _bookingMenu;
+    private RoomSearchMenu _roomMenu; 
     private Queries _queries;
+    private NpgsqlDataSource _database; 
 
-    public MainMenu(Queries queries)
+    public MainMenu(NpgsqlDataSource database)
     {
+        _database = database;  
+        Queries queries = new Queries(database);
         _guestMenu = new GuestMenu(this, queries);
         _bookingMenu = new BookingMenu(this, queries);
+        _roomMenu = new RoomSearchMenu(_database); 
         _queries = queries;
     }
 
@@ -43,7 +49,9 @@ public class MainMenu
                             
                             await _bookingMenu.RunMenu();
                             break;
-                        
+                        case 3:
+                            await _roomMenu.RunMenu();
+                            break;
                         case 4:
                             Console.WriteLine("Exiting program!");
                             Console.WriteLine("Goodbye!");

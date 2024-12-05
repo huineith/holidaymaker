@@ -14,7 +14,7 @@ public class RoomSearchMenu
         _roomInfoTable=new RoomTable(database, holidayStart, holidayEnd);
     }
 
-    public async Task Run()
+    public async Task RunMenu()
     {   
         var run = true;
         await _roomInfoTable.Load();
