@@ -253,7 +253,7 @@ public class Queries
         }
     }
 
-    public async void AddNewAddon(int booking, int addon, int amount)
+    public async Task AddNewAddon(int booking, int addon, int amount)
     {
             await using (var cmd = _database.CreateCommand(
                              $"INSERT INTO addonsxbookings(booking,addon,amount) " +
@@ -265,6 +265,10 @@ public class Queries
                 await cmd.ExecuteNonQueryAsync();
             }
     }
+    
+    
+    
+    
     public async Task CreateBooking(int admin, int room, int guest, DateTime startDate, DateTime endDate)
     {
         try
@@ -319,6 +323,29 @@ public class Queries
         catch (NpgsqlException npgsqlEx)
         {
             Console.WriteLine(npgsqlEx.Message);
+        }
+    }
+
+    public async Task ChangeAddonData(int booking, int addon, int amount)
+    {
+        await using (var cmd = _database.CreateCommand($"UPDATE addonsxbookings SET amount = $1 WHERE  booking= $2 AND addon=$3;"))
+        {
+            cmd.Parameters.AddWithValue(amount);
+            cmd.Parameters.AddWithValue(booking);
+            cmd.Parameters.AddWithValue(addon);
+            int rowsAffected = await cmd.ExecuteNonQueryAsync();
+            Console.WriteLine($"{rowsAffected} row(s) updated.");
+        }
+
+    }
+
+    public async Task DeleteAddon(int booking, int addon)
+    {
+        await using (var cmd = _database.CreateCommand("DELETE FROM addonsxbookings  WHERE  booking= $1 AND addon=$2;"))
+        {
+            cmd.Parameters.AddWithValue(booking);
+            cmd.Parameters.AddWithValue(addon); 
+            await cmd.ExecuteNonQueryAsync();
         }
     }
 }

@@ -57,30 +57,18 @@ public class AddonsMenu
                 }
                 break;
             case 2:
-                string bookingIdstring = "bookings:"; 
-                foreach (var booking in _guestBookings)
-                {
-                    bookingIdstring += $"{booking._id}, ";
-                }
-                Console.WriteLine("Select booking to add to:");
-                Console.WriteLine(bookingIdstring);
-                Console.WriteLine("select -1 to abort");
-                bool correctBookingId;
-                int choosenBooking;
-                do
-                {    choosenBooking = int.Parse(Console.ReadLine());
-                    correctBookingId = _guestBookings.Exists(x => x._id == choosenBooking);    
-                } while (!correctBookingId);
 
+                int choosenBooking = _GetBookingId();
+                bool correctBookingId = _guestBookings.Exists(x => x._id == choosenBooking);
+                if (!correctBookingId && choosenBooking > 0)
+                {
+                    Console.WriteLine("in correct booking id");   
+                }
+                
                 if (correctBookingId)
                 {
                    Console.WriteLine("choose addOn by id");
-                    Console.WriteLine("-----------------------------------------");
-                    foreach (var addon in _addons)
-                    {
-                        Console.WriteLine($"id:{addon._id},addOn:{addon._name},price:{addon._price}"); 
-                    }
-                    Console.WriteLine("-----------------------------------------");
+                   _PrintAddOnsList();
                     int choosenAddon= int.Parse(Console.ReadLine());
 
                     Console.WriteLine("-----------------------------------------");
@@ -93,10 +81,54 @@ public class AddonsMenu
                 }
                 break;
             case 3:
-                // to be done 
+                choosenBooking = _GetBookingId(); 
+                correctBookingId = _guestBookings.Exists(x => x._id == choosenBooking);
+                if (!correctBookingId && choosenBooking > 0)
+                { Console.WriteLine("in correct booking id");   
+                }
+                
+                if (correctBookingId)
+                {
+                    _bookingAddons = await _queries.ReadAddonsOfBooking(choosenBooking);
+                    foreach (var addon in _bookingAddons) 
+                    { 
+                        Console.WriteLine($"id:{addon._addonId} addon:{_addons[addon._addonId-1]} ,amount:{addon._amount} ");    
+                    }
+                    Console.WriteLine("choose addon by id:\n  -1 to abort");
+                    int addonIdToAlter=int.Parse(Console.ReadLine());
+                    if (addonIdToAlter < 0) { }
+                    else
+                    {
+                        Console.WriteLine("change amount to:");
+                        int alteredAmount=int.Parse(Console.ReadLine());
+                        await _queries.ChangeAddonData(choosenBooking,addonIdToAlter,alteredAmount);
+                        
+                    }
+                }
+                
                 break; 
             case 4: 
-                // to be done
+                choosenBooking = _GetBookingId(); 
+                correctBookingId = _guestBookings.Exists(x => x._id == choosenBooking);
+                if (!correctBookingId && choosenBooking > 0)
+                { Console.WriteLine("in correct booking id");   
+                }
+
+                if (correctBookingId)
+                {
+                    _bookingAddons = await _queries.ReadAddonsOfBooking(choosenBooking);
+                    foreach (var addon in _bookingAddons) 
+                    { 
+                        Console.WriteLine($"id:{addon._addonId} addon:{_addons[addon._addonId-1]} ,amount:{addon._amount} ");    
+                    }
+                    Console.WriteLine("choose addon by id:\n  -1 to abort");
+                    int addonToDelete=int.Parse(Console.ReadLine());
+                    if (addonToDelete < 0) { }
+                    else
+                    {
+                        _queries.DeleteAddon(choosenBooking, addonToDelete);
+                    }
+                }
                 break; 
             case 5:
                 run = false; 
@@ -108,6 +140,17 @@ public class AddonsMenu
 
     }
 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   //-------------------------------------------------------------------------------------------------
    private async Task<int> _ObtainGuestId()
    {
        
@@ -163,5 +206,30 @@ public class AddonsMenu
        } while (badInput);
 
        return guestId; 
+   }
+
+   private int _GetBookingId()
+   {
+       string bookingIdstring = "bookings:"; 
+       foreach (var booking in _guestBookings)
+       {
+           bookingIdstring += $"{booking._id}, ";
+       }
+       Console.WriteLine("Select booking to add to:");
+       Console.WriteLine(bookingIdstring);
+       Console.WriteLine("select -1 to abort");
+       int choosenBooking = int.Parse(Console.ReadLine());
+
+       return choosenBooking; 
+   }
+
+   private void _PrintAddOnsList()
+   {
+       Console.WriteLine("-----------------------------------------");
+       foreach (var addon in _addons)
+       {
+           Console.WriteLine($"id:{addon._id},addOn:{addon._name},price:{addon._price}"); 
+       }
+       Console.WriteLine("-----------------------------------------");
    }
 }
