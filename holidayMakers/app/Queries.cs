@@ -89,6 +89,21 @@ public class Queries
         return addonXbookingList;
     }
 
+    public async Task<List<addonXbooking>> ReadAddonsOfBooking(int bookingId)
+    {
+        var addonXbookingList = new List<addonXbooking>();
+        await using(var cmd = _database.CreateCommand($"SELECT * FROM addonsxbookings where booking={bookingId}"))
+        await using(var reader = await cmd.ExecuteReaderAsync())
+            while (await reader.ReadAsync())
+            {
+                addonXbookingList.Add(new addonXbooking(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1),
+                    reader.GetInt32(2)));
+            }
+
+        return addonXbookingList;
+    }
     public async Task<List<Addon>> ReadAddons()
     {
         var addonList = new List<Addon>();
@@ -123,6 +138,26 @@ public class Queries
 
         return bookinglist;
     }
+    
+    public async Task<List<Booking>> ReadGuestBookings(int guestId)
+    {
+        var bookinglist = new List<Booking>();
+        await using(var cmd = _database.CreateCommand($"SELECT * FROM bookings Where guest={guestId}"))
+        await using (var reader = await cmd.ExecuteReaderAsync())
+            while (await reader.ReadAsync())
+            {
+                bookinglist.Add(new Booking(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1),
+                    reader.GetInt32(2),
+                    reader.GetInt32(3),
+                    reader.GetDateTime(4),
+                    reader.GetDateTime(5)));
+            }
+
+        return bookinglist;
+    }
+    
 
     public async Task<List<Room>> GetRooms()
     {
