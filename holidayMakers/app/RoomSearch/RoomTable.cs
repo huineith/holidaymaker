@@ -9,12 +9,12 @@ public class RoomTable
     private List<IRoomFilter> _filters = new();
     private List<int> _unbookedIndexes = new();
     public List<int> _filteredIndexes;
-    public string HolidayStart;
-    public string HolidayEnd;
+    public DateTime HolidayStart;
+    public DateTime HolidayEnd;
     private int _orderBy = 0;
     private bool _desc = false; 
     
-    public RoomTable(NpgsqlDataSource database,string holidayStart, string holidayEnd)
+    public RoomTable(NpgsqlDataSource database,DateTime holidayStart, DateTime holidayEnd)
     {
         _database = database;
         HolidayStart = holidayStart;
@@ -241,8 +241,8 @@ public class RoomTable
     public async Task LoadTimeFilteredRooms() //LoadAvailble rooms.  _AvailbableRooms() 
     {   
         
-        string sq1=$" (select room from bookings where  (bookings.startdate between '{HolidayStart}' And '{HolidayEnd}'))" ;
-        string sq2=$" (select room from bookings where  (bookings.enddate between '{HolidayStart}' And '{HolidayEnd}'))" ;
+        string sq1=$" (select room from bookings where  (bookings.startdate between '{HolidayStart.ToString("yyyy-MM-dd hh:mm")}' And '{HolidayEnd.ToString("yyyy-MM-dd hh:mm")}'))" ;
+        string sq2=$" (select room from bookings where  (bookings.enddate between '{HolidayStart.ToString("yyyy-MM-dd hh:mm")}' And '{HolidayEnd.ToString("yyyy-MM-dd hh:mm")}'))" ;
         string query = "Select * from rooms where id not in "+sq1 +" and id not in "+sq2;
        
         await using (var cmd = _database.CreateCommand(query )) 

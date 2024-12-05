@@ -4,11 +4,11 @@ public class RoomSearchMenu
 {
     private RoomTable _roomInfoTable; 
     public RoomSearchMenu(NpgsqlDataSource database)
-    { 
-        Console.WriteLine("Input holiday start date yyyy-MM-dd HH:mm ");
-        String holidayStart = Console.ReadLine(); 
-        Console.WriteLine("Input holiday end date 'yyyy-MM-dd HH:mm' ");
-        String holidayEnd = Console.ReadLine();
+    {
+
+
+        DateTime holidayStart = inputDateTime(DateTime.Now, "Input holiday start date yyyy-MM-dd HH:mm ");
+        DateTime holidayEnd = inputDateTime(holidayStart, "Input holiday end date 'yyyy-MM-dd HH:mm' ");
         _roomInfoTable=new RoomTable(database, holidayStart, holidayEnd);
     }
 
@@ -204,4 +204,36 @@ public class RoomSearchMenu
        
 
     }
+
+
+    private DateTime inputDateTime(DateTime compareDate,string promptMessage)
+    {
+        bool inCorrectInput;
+        DateTime date=DateTime.MinValue;//place holder Value 
+        do
+        {
+            inCorrectInput = false;
+            Console.WriteLine(promptMessage);
+            String holidayStart = Console.ReadLine();
+            try
+            {
+                date = DateTime.Parse(holidayStart);
+                if (DateTime.Compare(date, compareDate) < 0)
+                {
+                    Console.WriteLine($"\n input a date later than {compareDate.ToString("yyyy-MM-dd hh:mm")}");
+                    inCorrectInput = true;
+                } ; 
+
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("\n Please input in correct Format");
+                inCorrectInput = true;
+            }
+        } while (inCorrectInput);
+
+        return date; 
+    }
+    
+    
 }

@@ -2,7 +2,9 @@
 
 using app;
 using Npgsql;
-using System.Collections; 
+using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.JavaScript;
 
 Console.WriteLine("Hello, World!");
 
