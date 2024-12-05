@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using app.RoomSearch;
 using app;
 using Npgsql;
 using System.Collections;
@@ -16,10 +17,10 @@ await Menu.Run();
 
 // Console.WriteLine("give holiday start yyyy-MM-dd HH:mm ");
 // String holidayStart = Console.ReadLine(); 
-// String holidayStart = "2024-12-05";  
+// String holidayStart = "2024-12-05 12:00";  
 // Console.WriteLine("give holiday end 'yyyy-MM-dd HH:mm' ");
 // String holidayEnd = Console.ReadLine(); 
-// String holidayEnd = "2024-12-07"; 
+// String holidayEnd = "2025-01-07 11:00";
 
 
 

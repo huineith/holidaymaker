@@ -1,4 +1,4 @@
-namespace app;
+namespace app.RoomSearch;
 
 public class FacilityFilter : IRoomFilter
 {

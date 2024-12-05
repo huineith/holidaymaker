@@ -1,4 +1,4 @@
-namespace app;
+namespace app.RoomSearch;
 
 using System.Collections; 
 public class Room
@@ -32,6 +32,12 @@ public class Room
                            +$"Total beds:{BedPlaces}, bedTypes: {this._BedTypeInfo()} ");
     }
 
+    public void PrintInfo( int daysBooked)
+    {
+        Console.WriteLine( $"id:{Id}, size:{RoomSize}, total price:{Price*daysBooked}, rating:{Rating}, location:{LocationInfo.InfoString()} \n"
+                           +$"facilities:{this._FacilitesInfo()} \nsites:{this._SightInfo()} \n" 
+                           +$"Total beds:{BedPlaces}, bedTypes: {this._BedTypeInfo()} ");
+    }
     public void CalcBedPlaces()
     {
         int beds = 0; 

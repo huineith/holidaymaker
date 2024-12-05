@@ -1,4 +1,4 @@
-namespace app;
+namespace app.RoomSearch;
 using Npgsql; 
 
 public class RoomTable
@@ -11,6 +11,7 @@ public class RoomTable
     public List<int> _filteredIndexes;
     public DateTime HolidayStart;
     public DateTime HolidayEnd;
+    private int _daysBooked; 
     private int _orderBy = 0;
     private bool _desc = false; 
     
@@ -19,6 +20,14 @@ public class RoomTable
         _database = database;
         HolidayStart = holidayStart;
         HolidayEnd = holidayEnd;
+        
+        
+        var diff = HolidayEnd - HolidayStart;
+        _daysBooked = diff.Days;
+        if (diff.Hours > 12)
+        {
+            _daysBooked += 1;
+        }
     }
 
 
@@ -68,7 +77,7 @@ public class RoomTable
         {
             var room =  RoomList[index];
             Console.WriteLine("-------------------------------------");
-            room.PrintInfo();
+            room.PrintInfo(_daysBooked);
         }
         
         
