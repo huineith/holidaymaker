@@ -1,0 +1,123 @@
+
+
+
+-- 1. Registrera in kunden
+INSERT INTO guests (email, firstName, lastName, phone, dateOfBirth, regDate, blocked) VALUES
+('kund@example.com', 'Kund', 'Namn', '0701234567', '1990-01-01', CURRENT_TIMESTAMP, FALSE);
+
+
+
+-- 2. Söka efter lediga rum med specificerade sökkriterier mellan specificerade datum
+SELECT rooms.id, rooms.size, rooms.location, rooms.priceDay, rooms.rating
+FROM rooms
+LEFT JOIN bookings ON rooms.id = bookings.room AND bookings.startDate <= '2025-01-31' AND bookings.endDate >= '2025-01-01'
+WHERE bookings.id IS NULL
+AND rooms.id NOT IN (
+    SELECT room FROM bookings WHERE startDate <= '2025-01-31' AND endDate >= '2025-01-01'
+);
+
+
+
+-- 3. Skapa bokningar
+INSERT INTO bookings (admin, room, guest, startDate, endDate) VALUES
+(1, 1, 1, '2025-01-01', '2025-01-10');
+
+
+
+
+-- 4. Erbjuda tilläggstjänster (extrasäng, halvpension, helpension)
+INSERT INTO addOnsXBookings (booking, addon, amount) VALUES
+(1, 1, 1); -- Extra Bed
+
+
+
+-- 5. Ändra detaljer i en bokning
+UPDATE bookings
+SET startDate = '2025-01-05', endDate = '2025-01-15'
+WHERE id = 1;
+
+
+
+
+-- 6. Avboka
+DELETE FROM bookings
+WHERE id = 1;
+
+
+
+
+-- 7. Söka på boenden baserat på avstånd till strand
+SELECT rooms.id, rooms.size, rooms.location, rooms.priceDay, rooms.rating, sightsXRooms.distance
+FROM rooms
+JOIN sightsXRooms ON rooms.id = sightsXRooms.room
+JOIN sights ON sights.id = sightsXRooms.sight
+WHERE sights.name = 'Beach' AND sightsXRooms.distance <= 500;
+
+
+
+
+-- 8. Söka på boenden baserat på avstånd till centrum
+SELECT rooms.id, rooms.size, rooms.location, rooms.priceDay, rooms.rating, sightsXRooms.distance
+FROM rooms
+JOIN sightsXRooms ON rooms.id = sightsXRooms.room
+JOIN sights ON sights.id = sightsXRooms.sight
+WHERE sights.name = 'City Center' AND sightsXRooms.distance <= 500;
+
+
+
+
+-- 9. Sökträffar ska kunna ordnas på pris (lågt till högt)
+SELECT rooms.id, rooms.size, rooms.location, rooms.priceDay, rooms.rating
+FROM rooms
+ORDER BY rooms.priceDay ASC;
+
+
+
+
+-- 10. Sökträffar ska kunna ordnas på omdöme (högt till lågt)
+SELECT rooms.id, rooms.size, rooms.location, rooms.priceDay, rooms.rating
+FROM rooms
+ORDER BY rooms.rating DESC;
+
+
+
+
+-- 11. Beskriva sällskapet
+SELECT g.firstName, g.lastName, g.email, g.phone, g.dateOfBirth
+FROM guests g
+JOIN groups gr ON g.id = gr.guest
+WHERE gr.booking = 1;
+
+
+
+
+-- 12. Grundläggande val (Pool, Kvällsunderhållning, Barnklubb, Restaurang)
+ALTER TABLE rooms ADD COLUMN pool BOOLEAN DEFAULT FALSE;
+ALTER TABLE rooms ADD COLUMN eveningEntertainment BOOLEAN DEFAULT FALSE;
+ALTER TABLE rooms ADD COLUMN kidsClub BOOLEAN DEFAULT FALSE;
+ALTER TABLE rooms ADD COLUMN restaurant BOOLEAN DEFAULT FALSE;
+
+
+
+
+-- Uppdatera rum med grundläggande val
+UPDATE rooms
+SET pool = TRUE, eveningEntertainment = TRUE, kidsClub = TRUE, restaurant = TRUE
+WHERE id = 1;
+
+
+
+
+-- 13. Kombinerad sökning
+SELECT rooms.id, rooms.size, rooms.location, rooms.priceDay, rooms.rating
+FROM rooms
+LEFT JOIN bookings ON rooms.id = bookings.room AND bookings.startDate <= '2025-01-31' AND bookings.endDate >= '2025-01-01'
+JOIN sightsXRooms ON rooms.id = sightsXRooms.room
+JOIN sights ON sights.id = sightsXRooms.sight
+WHERE bookings.id IS NULL
+AND sights.name = 'Beach' AND sightsXRooms.distance <= 500
+AND rooms.pool = TRUE
+AND rooms.eveningEntertainment = TRUE
+AND rooms.kidsClub = TRUE
+AND rooms.restaurant = TRUE
+ORDER BY rooms.priceDay ASC;
