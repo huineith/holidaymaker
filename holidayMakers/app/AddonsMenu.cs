@@ -8,22 +8,32 @@ public class AddonsMenu
 {
     private Queries _queries;
     private List<Addon> _addons;
+    private List<Booking> _guestBookings; 
     private List<addonXbooking> _bookingAddons;
-    private int guestId; 
+ 
     public AddonsMenu(Queries queries)
     {
         _queries = queries; 
     }
 
+    public async Task Load()
+    {
+        _addons =await _queries.ReadAddons();
+    }
+
    public async Task RunMenu()
    {
        bool run = true; 
-       _addons =await _queries.ReadAddons();
-       var guestId = await _ObtainGuestId();
-
+       
+       Console.Clear();
+       int guestId = await _ObtainGuestId();
        if (guestId == -1)
        {
            run = false; 
+       }
+       else
+       {
+           _guestBookings = await _queries.ReadGuestBookings(guestId);
        } 
         
         while (run)
@@ -31,6 +41,13 @@ public class AddonsMenu
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("THIS IS THE Addon MENU");
             Console.ResetColor();
+            Console.WriteLine("\n \n");
+            Console.WriteLine($"   1. List Bookings");
+            Console.WriteLine($"   2. add Addons");
+            Console.WriteLine($"   3. Alter Addons");
+            Console.WriteLine($"   4. Remove Addons ");
+            Console.WriteLine($"   5. Go back.");
+            Console.WriteLine("\n");
             run = false; 
         }
         
