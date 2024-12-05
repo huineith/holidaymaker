@@ -2,7 +2,7 @@ namespace app;
 using Npgsql; 
 using DotNetEnv;
 
-public class Database
+public class EnvDatabase
 {
 
 
@@ -20,7 +20,7 @@ public class Database
       return _connection; 
    }
 
-   public Database()
+   public EnvDatabase()
    {
       Env.TraversePath().Load();
       _host = Env.GetString("db_host");

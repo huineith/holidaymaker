@@ -6,7 +6,7 @@ using System.Collections;
 
 Console.WriteLine("Hello, World!");
 
-Database mydb = new Database();
+EnvDatabase mydb = new EnvDatabase();
 var myconnection = mydb.Connection();
 
 var Menu = new RoomSearchMenu(myconnection);
