@@ -1,4 +1,6 @@
-namespace app.RoomSearch;
+namespace app.Menus;
+
+using app.RoomSearch;
 using Npgsql; 
 public class RoomSearchMenu
 {
