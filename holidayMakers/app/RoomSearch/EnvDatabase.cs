@@ -2,6 +2,8 @@ namespace app.RoomSearch;
 using Npgsql; 
 using DotNetEnv;
 
+// Version of database With .env File was determined to solution without .env Files. 
+// 
 public class EnvDatabase
 {
 
