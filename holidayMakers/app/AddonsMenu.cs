@@ -48,7 +48,27 @@ public class AddonsMenu
             Console.WriteLine($"   4. Remove Addons ");
             Console.WriteLine($"   5. Go back.");
             Console.WriteLine("\n");
-            run = false; 
+            int option = int.Parse(Console.ReadLine());
+            switch (option)
+            {case 1:
+                foreach (var booking in _guestBookings)
+                {
+                    Console.WriteLine($"id: {booking._id }, room id:{booking._room}, booking start:{booking._startDate.ToString("yyyy-MM-dd hh:mm")},booking end:{booking._endDate.ToString("yyyy-MM-dd hh:mm")}   ");
+                }
+                break;
+            case 2: // to be done 
+                break;
+            case 3:
+                // to be done 
+                break; 
+            case 4: 
+                // to be done
+                break; 
+            case 5:
+                run = false; 
+                break; 
+            }
+        
         }
         
 
