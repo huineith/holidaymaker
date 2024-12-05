@@ -46,7 +46,8 @@ public class RoomSearchMenu
                     Console.WriteLine($"   1. Location ");
                     Console.WriteLine($"   2. Sights ");
                     Console.WriteLine($"   3. Facilities");
-                    Console.WriteLine($"   4. Go back.");
+                    Console.WriteLine($"   4. Group Size");
+                    Console.WriteLine($"   5. Go back.");
                     Console.WriteLine("\n");
                     int filterType = int.Parse(Console.ReadLine());
 
@@ -100,7 +101,13 @@ public class RoomSearchMenu
                             _roomInfoTable.AddFilter(new FacilityFilter((Facility)facilityIndex));
                             Console.WriteLine("Filter added \n");
                             break;
-                        case 4:
+                        case 4: 
+                            Console.Clear();
+                            Console.WriteLine("Input group size");
+                            int groupSize= int.Parse(Console.ReadLine());
+                            _roomInfoTable.AddFilter(new GroupSizeFilter(groupSize));
+                            break;
+                        case 5:
                             runFiltersSubMenu = false;
                             Console.Clear();
                                 
