@@ -41,7 +41,6 @@ public class AddonsMenu
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("THIS IS THE Addon MENU");
             Console.ResetColor();
-            Console.WriteLine("\n \n");
             Console.WriteLine($"   1. List Bookings");
             Console.WriteLine($"   2. add Addons");
             Console.WriteLine($"   3. Alter Addons");
@@ -51,10 +50,13 @@ public class AddonsMenu
             int option = int.Parse(Console.ReadLine());
             switch (option)
             {case 1:
+                    Console.WriteLine("--------------------------------------------------------------------");
                 foreach (var booking in _guestBookings)
                 {
-                    Console.WriteLine($"id: {booking._id }, room id:{booking._room}, booking start:{booking._startDate.ToString("yyyy-MM-dd hh:mm")},booking end:{booking._endDate.ToString("yyyy-MM-dd hh:mm")}   ");
+                    Console.WriteLine($"Booking id: {booking._id }, room id:{booking._room}, booking start:{booking._startDate.ToString("yyyy-MM-dd hh:mm")},booking end:{booking._endDate.ToString("yyyy-MM-dd hh:mm")}   ");
                 }
+
+                Console.WriteLine("--------------------------------------------------------------------");
                 break;
             case 2:
 
@@ -72,7 +74,7 @@ public class AddonsMenu
                     int choosenAddon= int.Parse(Console.ReadLine());
 
                     Console.WriteLine("-----------------------------------------");
-                    Console.WriteLine($"How many {_addons[choosenAddon-1]._name} would you like to add?:");
+                    Console.WriteLine($"How many {_addons[choosenAddon-1]._name} would you like to add?");
                     int choosenAmount=int.Parse(Console.ReadLine());
 
                     _queries.AddNewAddon(choosenBooking, choosenAddon, choosenAmount); 
@@ -92,7 +94,7 @@ public class AddonsMenu
                     _bookingAddons = await _queries.ReadAddonsOfBooking(choosenBooking);
                     foreach (var addon in _bookingAddons) 
                     { 
-                        Console.WriteLine($"id:{addon._addonId} addon:{_addons[addon._addonId-1]} ,amount:{addon._amount} ");    
+                        Console.WriteLine($"id:{addon._addonId} addon:{_addons[addon._addonId-1]._name} ,amount:{addon._amount} ");    
                     }
                     Console.WriteLine("choose addon by id:\n  -1 to abort");
                     int addonIdToAlter=int.Parse(Console.ReadLine());
@@ -215,9 +217,9 @@ public class AddonsMenu
        {
            bookingIdstring += $"{booking._id}, ";
        }
-       Console.WriteLine("Select booking to add to:");
+       Console.WriteLine("Select booking");
        Console.WriteLine(bookingIdstring);
-       Console.WriteLine("select -1 to abort");
+       Console.WriteLine("select -1 to abort:");
        int choosenBooking = int.Parse(Console.ReadLine());
 
        return choosenBooking; 
