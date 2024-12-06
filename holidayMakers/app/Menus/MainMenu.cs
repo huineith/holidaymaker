@@ -8,17 +8,18 @@ public class MainMenu
 {
     private GuestMenu _guestMenu;
     private BookingMenu _bookingMenu;
-    private RoomSearchMenu _roomMenu; 
+    private RoomSearchMenu _roomMenu;
+    private AddonsMenu _addonsMenu;
     private Queries _queries;
-    private NpgsqlDataSource _database; 
+    
 
     public MainMenu(NpgsqlDataSource database)
     {
-        _database = database;  
         Queries queries = new Queries(database);
         _guestMenu = new GuestMenu(this, queries);
         _bookingMenu = new BookingMenu(this, queries);
-        _roomMenu = new RoomSearchMenu(_database); 
+        _roomMenu = new RoomSearchMenu(database);
+        _addonsMenu = new AddonsMenu(queries);
         _queries = queries;
     }
 
@@ -35,8 +36,9 @@ public class MainMenu
             
             Console.WriteLine($"   1. Guests\u001b[0m");
             Console.WriteLine($"   2. Bookings\u001b[0m");
-            Console.WriteLine($"   3. SearchMenu\u001b[0m");
-            Console.WriteLine($"   4. Exit program.\u001b[0m");
+            Console.WriteLine($"   3. Search Rooms\u001b[0m");
+            Console.WriteLine($"   4. Addons");
+            Console.WriteLine($"   5. Exit program.\u001b[0m");
             Console.WriteLine("\n");
             int option = int.Parse(Console.ReadLine());
             
@@ -53,6 +55,9 @@ public class MainMenu
                             await _roomMenu.RunMenu();
                             break;
                         case 4:
+                            await _addonsMenu.RunMenu();
+                            break;
+                        case 5:
                             Console.WriteLine("Exiting program!");
                             Console.WriteLine("Goodbye!");
                             return false;

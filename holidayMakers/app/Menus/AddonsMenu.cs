@@ -1,6 +1,6 @@
 using System.Threading.Channels;
 
-namespace app;
+namespace app.Menus;
 using app.Classes;
 
 
