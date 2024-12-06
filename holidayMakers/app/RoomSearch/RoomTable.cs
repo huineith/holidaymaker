@@ -7,8 +7,8 @@ public class RoomTable
     public List<Location> LocationList=new();
     public List<Room> RoomList=new();
     private List<IRoomFilter> _filters = new();
-    private List<int> _unbookedIndexes = new();
-    public List<int> _filteredIndexes;
+    private List<int> _unbookedIndexes = new();// Index of all rooms that are available (stored as index of RoomList)    RoomId-1=IndexRoomList
+    public List<int> _filteredIndexes; //Index av rum som  uppfyller filtrering
     public DateTime HolidayStart;
     public DateTime HolidayEnd;
     private int _daysBooked; 
@@ -158,7 +158,7 @@ public class RoomTable
     {
         List<int> passedIndexes = new();
         
-        foreach (var index in _filteredIndexes)
+        foreach (var index in _filteredIndexes) 
         {
             Room selectedRoom = RoomList[index];
             if (filter.Filter(selectedRoom))

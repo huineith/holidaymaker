@@ -16,13 +16,11 @@ public class AddonsMenu
         _queries = queries; 
     }
 
-    public async Task Load()
-    {
-        _addons =await _queries.ReadAddons();
-    }
+    
 
    public async Task RunMenu()
    {
+       _addons =await _queries.ReadAddons();
        bool run = true; 
        
        Console.Clear();

@@ -18,3 +18,8 @@ while (run)
     run = await mainMenu.RunMenu();
     
 }
+
+// var myquery = new Queries(myconnection); 
+// var menuAddon = new AddonsMenu(myquery);
+// await menuAddon.Load();
+// await menuAddon.RunMenu(); 
