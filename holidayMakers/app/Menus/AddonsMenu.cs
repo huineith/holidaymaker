@@ -132,6 +132,7 @@ public class AddonsMenu
                 break; 
             case 5:
                 run = false; 
+                Console.Clear();
                 break; 
             }
         
